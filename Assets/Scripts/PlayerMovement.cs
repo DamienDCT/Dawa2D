@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -5,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float speed = 5f;
     public float jumpForce = 5f;
+    private bool canPlayerMove = true;
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundPoint;
@@ -45,6 +47,16 @@ public class PlayerMovement : MonoBehaviour
         wallJumpDirection.Normalize();
         isWallJumping = false;
         amountJumps = 0;
+
+        // InputController
+        InputController.Instance.OnPhaseSelectorChange += InputController_OnPhaseSelectorChange;
+    }
+
+    private void InputController_OnPhaseSelectorChange(object sender, bool isMenuOpen)
+    {
+        this.canPlayerMove = !isMenuOpen;
+        // Reset velocity 
+        rb.linearVelocity = Vector3.zero;
     }
 
     private void Update()
@@ -62,6 +74,11 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         PerformMovement();
+    }
+
+    public bool IsGrounded()
+    {
+        return this.isGrounded;
     }
 
     private bool CanDoubleJump()
@@ -126,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void PerformMovement()
     {
+        if (!canPlayerMove) return;
         if (isWallJumping) return; // ✅ on empêche le joueur de "casser" son wall jump
 
         Vector2 move = input.MovementVector;
@@ -210,5 +228,10 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.DrawLine(transform.position, transform.position + Vector3.left * wallCheckDistance);
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * wallCheckDistance);
+    }
+
+    public bool IsFacingRight()
+    {
+        return facingRight;
     }
 }
