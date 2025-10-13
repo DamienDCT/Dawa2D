@@ -37,6 +37,8 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] public float LastOnWallTime;
     [SerializeField] public float LastOnWallRightTime;
     [SerializeField] public float LastOnWallLeftTime;
+    public float TimeNoMove;
+    public float Velocity;
 
     [SerializeField] private int amountJumps;
 
@@ -77,13 +79,19 @@ public class PlayerMovements : MonoBehaviour
 
     #region LAYERS & TAGS
     [Header("Layers & Tags")]
-    [Header("Layers & Tags")]
     [SerializeField] private LayerMask _groundLayer;
+    #endregion
+
+    #region OTHER SCRIPTS
+    [Header("Other scripts")]
+    [SerializeField] private PlayerPowerUp playerSpell;
+    [SerializeField] private PlayerPhaseSelector playerPhase;
     #endregion
 
     private void Awake()
     {
         RB = GetComponent<Rigidbody2D>();
+        
     //    AnimHandler = GetComponent<PlayerAnimator>();
     }
 
@@ -108,6 +116,13 @@ public class PlayerMovements : MonoBehaviour
 
         LastPressedJumpTime -= Time.deltaTime;
         LastPressedDashTime -= Time.deltaTime;
+        TimeNoMove += Time.deltaTime;
+        #endregion
+
+        //   Debug.Log($"MoveInput: {_moveInput.x}, Dashing:{IsDashing}, SpellDashing:{playerSpell.IsDashing}");
+
+        #region ANIMATIONS
+        Velocity = Mathf.Abs(RB.linearVelocityX);
         #endregion
 
         #region INPUT HANDLER
@@ -144,6 +159,7 @@ public class PlayerMovements : MonoBehaviour
                 {
                     //         AnimHandler.justLanded = true;
                     amountJumps = 0;
+                    playerSpell.ResetPowerUpFeasibility();
                 }
 
                 LastOnGroundTime = Data.coyoteTime; //if so sets the lastGrounded to coyoteTime
@@ -204,7 +220,7 @@ public class PlayerMovements : MonoBehaviour
                 _isJumpCut = false;
                 _isJumpFalling = false;
                 Jump(Data.doubleJumpHeight, true);
-
+             //   Debug.Log("we double jump");
                 //    AnimHandler.startedJumping = true;
             }
             //WALL JUMP
@@ -268,7 +284,7 @@ public class PlayerMovements : MonoBehaviour
             {
                 SetGravityScale(0);
             }
-            else if (RB.linearVelocity.y < 0 && _moveInput.y < 0)
+            else if (RB.linearVelocity.y < 0 && _moveInput.y < 0 && Data.useFastFall)
             {
                 //Much higher gravity if holding down
                 SetGravityScale(Data.gravityScale * Data.fastFallGravityMult);
@@ -330,11 +346,15 @@ public class PlayerMovements : MonoBehaviour
     //Methods which whandle input detected in Update()
     public void OnJumpInput()
     {
+        if (playerSpell.IsCasting())
+            return;
         LastPressedJumpTime = Data.jumpInputBufferTime;
     }
 
     public void OnJumpUpInput()
     {
+        if (playerSpell.IsCasting())
+            return;
         if (CanJumpCut() || CanWallJumpCut())
             _isJumpCut = true;
     }
@@ -371,6 +391,11 @@ public class PlayerMovements : MonoBehaviour
     #region RUN METHODS
     private void Run(float lerpAmount)
     {
+        if (playerSpell.IsDashing)
+            return;
+        if (playerPhase.IsChangingPhase)
+            return;
+
         //Calculate the direction we want to move in and our desired velocity
         float targetSpeed = _moveInput.x * Data.runMaxSpeed;
         //We can reduce are control using Lerp() this smooths changes to are direction and speed
@@ -414,6 +439,12 @@ public class PlayerMovements : MonoBehaviour
 
         //Convert this to a vector and apply to rigidbody
         RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
+        if (movement != 0f)
+        {
+            TimeNoMove = 0f;
+        }
+
+      //  Debug.Log($"Run() called - movement={movement}");
 
         /*
 		 * For those interested here is what AddForce() will do
@@ -424,10 +455,18 @@ public class PlayerMovements : MonoBehaviour
 
     private void Turn()
     {
+        if (playerSpell.IsDashing)
+            return;
+        if (playerPhase.IsChangingPhase)
+            return;
+
+    
         //stores scale and flips the player along the x axis, 
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+
+        playerPhase.SetCanvasCorrectly(transform.localScale);
 
         IsFacingRight = !IsFacingRight;
     }
@@ -451,6 +490,7 @@ public class PlayerMovements : MonoBehaviour
         }
         if (!isDouble) // Premier saut → compense la chute
         {
+          //  Debug.Log("we jump solo");
             if (RB.linearVelocity.y < 0)
                 force -= RB.linearVelocity.y;
 
@@ -460,6 +500,10 @@ public class PlayerMovements : MonoBehaviour
         }
         else
         {
+            if (playerSpell.IsCasting())
+                return;
+
+        //    Debug.Log("we double jump");
             // Pour le double saut → reset un peu la vitesse Y avant d'appliquer la force
             RB.linearVelocity = new Vector2(RB.linearVelocity.x, 0);
             amountJumps++;
@@ -584,7 +628,7 @@ public class PlayerMovements : MonoBehaviour
 
     private bool CanJump()
     {
-        return LastOnGroundTime > 0 && !IsJumping;
+        return LastOnGroundTime > 0 && !IsJumping && !playerSpell.IsCasting();
     }
 
     private bool CanDoubleJump()
@@ -649,6 +693,34 @@ public class PlayerMovements : MonoBehaviour
         Gizmos.DrawWireCube(_backWallCheckPoint.position, _wallCheckSize);
     }
     #endregion
+
+    public void ResetPlayerState(Vector3 spawnPos)
+    {
+        // Replacer à la position du spawn
+        transform.position = spawnPos;
+
+        // Reset physique
+        RB.linearVelocity = Vector2.zero;
+        RB.angularVelocity = 0f;
+
+        // Reset flags
+        IsJumping = false;
+        IsWallJumping = false;
+        IsDashing = false;
+        IsSliding = false;
+
+        _isJumpCut = false;
+        _isJumpFalling = false;
+        _isDashAttacking = false;
+
+        LastOnGroundTime = 0;
+        LastOnWallTime = 0;
+        LastOnWallRightTime = 0;
+        LastOnWallLeftTime = 0;
+        TimeNoMove = 0;
+
+        amountJumps = 0;
+    }
 }
 
 // created by Dawnosaur :D

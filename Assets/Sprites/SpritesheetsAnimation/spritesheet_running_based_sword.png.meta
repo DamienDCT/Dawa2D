@@ -1,0 +1,637 @@
+fileFormatVersion: 2
+guid: 441d8afafc16735438a3cb4c47e5df8a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4152402207252901968
+    second: spritesheet_running_based_sword_0
+  - first:
+      213: 613785685227907952
+    second: spritesheet_running_based_sword_1
+  - first:
+      213: 2816210040913627202
+    second: spritesheet_running_based_sword_2
+  - first:
+      213: -2942020845216358376
+    second: spritesheet_running_based_sword_3
+  - first:
+      213: -4981615241207800171
+    second: spritesheet_running_based_sword_4
+  - first:
+      213: -141135532291960912
+    second: spritesheet_running_based_sword_5
+  - first:
+      213: -4044113084636788545
+    second: spritesheet_running_based_sword_6
+  - first:
+      213: -3430638470844748394
+    second: spritesheet_running_based_sword_7
+  - first:
+      213: 7656664518064459899
+    second: spritesheet_running_based_sword_8
+  - first:
+      213: 1945531585473923010
+    second: spritesheet_running_based_sword_9
+  - first:
+      213: 1582398361807234620
+    second: spritesheet_running_based_sword_10
+  - first:
+      213: -6687081761481291373
+    second: spritesheet_running_based_sword_11
+  - first:
+      213: -6128541685784637489
+    second: spritesheet_running_based_sword_12
+  - first:
+      213: -2937138377363665165
+    second: spritesheet_running_based_sword_13
+  - first:
+      213: -4368056815266550444
+    second: spritesheet_running_based_sword_14
+  - first:
+      213: -2512487655336902289
+    second: spritesheet_running_based_sword_15
+  - first:
+      213: -8796098680407249277
+    second: spritesheet_running_based_sword_16
+  - first:
+      213: -4801889567438692282
+    second: spritesheet_running_based_sword_17
+  - first:
+      213: 2562991286528370537
+    second: spritesheet_running_based_sword_18
+  - first:
+      213: -1991593139579354483
+    second: spritesheet_running_based_sword_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 500
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 3432
+        width: 979
+        height: 848
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0507bdf9ecb40a930800000000000000
+      internalID: 4152402207252901968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_1
+      rect:
+        serializedVersion: 2
+        x: 1064
+        y: 3456
+        width: 941
+        height: 824
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07baa3824da948800800000000000000
+      internalID: 613785685227907952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_2
+      rect:
+        serializedVersion: 2
+        x: 2115
+        y: 3464
+        width: 854
+        height: 816
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2488b8d7c10351720800000000000000
+      internalID: 2816210040913627202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_3
+      rect:
+        serializedVersion: 2
+        x: 3188
+        y: 3447
+        width: 818
+        height: 833
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 810a517f0a7db27d0800000000000000
+      internalID: -2942020845216358376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2598
+        width: 811
+        height: 827
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59e1324f45fbddab0800000000000000
+      internalID: -4981615241207800171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_5
+      rect:
+        serializedVersion: 2
+        x: 1054
+        y: 2605
+        width: 898
+        height: 820
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bf4d8c2bf59a0ef0800000000000000
+      internalID: -141135532291960912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_6
+      rect:
+        serializedVersion: 2
+        x: 2109
+        y: 2567
+        width: 1034
+        height: 858
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb807be739c60e7c0800000000000000
+      internalID: -4044113084636788545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_7
+      rect:
+        serializedVersion: 2
+        x: 3170
+        y: 2575
+        width: 1043
+        height: 850
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69d6280bc7ce360d0800000000000000
+      internalID: -3430638470844748394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1742
+        width: 1056
+        height: 827
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b70d19bffcfe14a60800000000000000
+      internalID: 7656664518064459899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_9
+      rect:
+        serializedVersion: 2
+        x: 1081
+        y: 1754
+        width: 935
+        height: 805
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c7c97b4baaeffa10800000000000000
+      internalID: 1945531585473923010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_10
+      rect:
+        serializedVersion: 2
+        x: 2109
+        y: 1743
+        width: 900
+        height: 788
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c362ea81deec5f510800000000000000
+      internalID: 1582398361807234620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_11
+      rect:
+        serializedVersion: 2
+        x: 3181
+        y: 1757
+        width: 898
+        height: 775
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3990aee4196b233a0800000000000000
+      internalID: -6687081761481291373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 903
+        width: 894
+        height: 790
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcf02a3aecb03faa0800000000000000
+      internalID: -6128541685784637489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_13
+      rect:
+        serializedVersion: 2
+        x: 1054
+        y: 905
+        width: 885
+        height: 788
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fe421915303d37d0800000000000000
+      internalID: -2937138377363665165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_14
+      rect:
+        serializedVersion: 2
+        x: 2109
+        y: 897
+        width: 879
+        height: 816
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45d205f287b8163c0800000000000000
+      internalID: -4368056815266550444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_15
+      rect:
+        serializedVersion: 2
+        x: 3164
+        y: 915
+        width: 885
+        height: 798
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6107190ac9d12dd0800000000000000
+      internalID: -2512487655336902289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 86
+        width: 969
+        height: 771
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38e2b099adafde580800000000000000
+      internalID: -8796098680407249277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_17
+      rect:
+        serializedVersion: 2
+        x: 1054
+        y: 65
+        width: 939
+        height: 792
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 640a92241e24c5db0800000000000000
+      internalID: -4801889567438692282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_18
+      rect:
+        serializedVersion: 2
+        x: 2109
+        y: 61
+        width: 943
+        height: 796
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 967e1fbeef2919320800000000000000
+      internalID: 2562991286528370537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_running_based_sword_19
+      rect:
+        serializedVersion: 2
+        x: 3164
+        y: 66
+        width: 894
+        height: 791
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d82844a67907c54e0800000000000000
+      internalID: -1991593139579354483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      spritesheet_running_based_sword_0: 4152402207252901968
+      spritesheet_running_based_sword_1: 613785685227907952
+      spritesheet_running_based_sword_10: 1582398361807234620
+      spritesheet_running_based_sword_11: -6687081761481291373
+      spritesheet_running_based_sword_12: -6128541685784637489
+      spritesheet_running_based_sword_13: -2937138377363665165
+      spritesheet_running_based_sword_14: -4368056815266550444
+      spritesheet_running_based_sword_15: -2512487655336902289
+      spritesheet_running_based_sword_16: -8796098680407249277
+      spritesheet_running_based_sword_17: -4801889567438692282
+      spritesheet_running_based_sword_18: 2562991286528370537
+      spritesheet_running_based_sword_19: -1991593139579354483
+      spritesheet_running_based_sword_2: 2816210040913627202
+      spritesheet_running_based_sword_3: -2942020845216358376
+      spritesheet_running_based_sword_4: -4981615241207800171
+      spritesheet_running_based_sword_5: -141135532291960912
+      spritesheet_running_based_sword_6: -4044113084636788545
+      spritesheet_running_based_sword_7: -3430638470844748394
+      spritesheet_running_based_sword_8: 7656664518064459899
+      spritesheet_running_based_sword_9: 1945531585473923010
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

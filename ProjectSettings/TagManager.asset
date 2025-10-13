@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Enemy
+  - BreakableGround
   layers:
   - Default
   - TransparentFX
@@ -21,9 +22,9 @@ TagManager:
   - PlayerAttack
   - Collectible
   - TriggerZone
-  - 
-  - 
-  - 
+  - HammerFiloryn
+  - RoomExit
+  - BGFar
   - 
   - 
   - 
@@ -43,8 +44,14 @@ TagManager:
   - name: BackgroundFar
     uniqueID: 787007441
     locked: 0
+  - name: BackgroundMid
+    uniqueID: 2681456117
+    locked: 0
   - name: Background
     uniqueID: 1960565677
+    locked: 0
+  - name: Background close
+    uniqueID: 3332417981
     locked: 0
   - name: Default
     uniqueID: 0
