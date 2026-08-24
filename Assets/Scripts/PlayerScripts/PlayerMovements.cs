@@ -75,6 +75,10 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private Transform _frontWallCheckPoint;
     [SerializeField] private Transform _backWallCheckPoint;
     [SerializeField] private Vector2 _wallCheckSize = new Vector2(0.5f, 1f);
+    [Space(5)]
+    [Header("Void Check")]
+    [SerializeField] private float _voidCheckDistance = 1.2f;
+ //   private float _fallSpeedYDampingChangeThreshold;
     #endregion
 
     #region LAYERS & TAGS
@@ -87,6 +91,10 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private PlayerPowerUp playerSpell;
     [SerializeField] private PlayerPhaseSelector playerPhase;
     #endregion
+
+
+    private float _fallSpeedYDampingChangeThreshold;
+    private bool _isFallingCameraActive = false;
 
     private void Awake()
     {
@@ -104,7 +112,18 @@ public class PlayerMovements : MonoBehaviour
         amountJumps = 0;
     }
 
+    private bool IsGroundBelow()
+    {
+        Vector2 origin = _groundCheckPoint.position;
 
+        RaycastHit2D hit = Physics2D.Raycast(
+            origin,
+            Vector2.down,
+            _voidCheckDistance,
+            _groundLayer);
+
+        return hit.collider != null;
+    }
 
     private void Update()
     {
@@ -118,6 +137,19 @@ public class PlayerMovements : MonoBehaviour
         LastPressedDashTime -= Time.deltaTime;
         TimeNoMove += Time.deltaTime;
         #endregion
+
+/*        if (RB.linearVelocityY < _fallSpeedYDampingChangeThreshold && !CameraManager.Instance.IsLerpingYDamping && !CameraManager.Instance.LerpedFromPlayerFalling)
+        {
+            CameraManager.Instance.LerpYDamping(true);
+        }
+
+        if(RB.linearVelocityY >= 0f && !CameraManager.Instance.IsLerpingYDamping && CameraManager.Instance.LerpedFromPlayerFalling)
+        {
+            CameraManager.Instance.LerpedFromPlayerFalling = false;
+
+            CameraManager.Instance.LerpYDamping(false);
+
+        }*/
 
         //   Debug.Log($"MoveInput: {_moveInput.x}, Dashing:{IsDashing}, SpellDashing:{playerSpell.IsDashing}");
 
@@ -508,7 +540,7 @@ public class PlayerMovements : MonoBehaviour
             RB.linearVelocity = new Vector2(RB.linearVelocity.x, 0);
             amountJumps++;
 
-            RB.AddForce(Vector2.up * force * 5f, ForceMode2D.Impulse);
+            RB.AddForce(Vector2.up * force * Data.jumpVelocity, ForceMode2D.Impulse);;
         }
 
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   gravityStrength: -52
   gravityScale: 5.3007135
   fallGravityMult: 2
-  maxFallSpeed: 18
+  maxFallSpeed: 12
   fastFallGravityMult: 5
   maxFastFallSpeed: 50
   useFastFall: 1
@@ -28,6 +28,7 @@ MonoBehaviour:
   deccelInAir: 1
   doConserveMomentum: 0
   jumpHeight: 6.5
+  jumpVelocity: 3
   doubleJumpHeight: 4.5
   jumpTimeToApex: 0.5
   maxJumps: 2

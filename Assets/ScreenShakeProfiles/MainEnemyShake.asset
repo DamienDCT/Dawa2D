@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb07faae62865541a92799b706d1042, type: 3}
+  m_Name: MainEnemyShake
+  m_EditorClassIdentifier: Assembly-CSharp::ScreenShakeProfile
+  impactTime: 0.2
+  impactForce: 1
+  defaultVelocity: {x: 0, y: -1, z: 0}
+  impulseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0021209717
+      value: 0.002380371
+      inSlope: 2.0087626
+      outSlope: 2.0087626
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4987549
+      value: 1
+      inSlope: 0.00804466
+      outSlope: 0.00804466
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0031738
+      value: -0.005142212
+      inSlope: -1.9926733
+      outSlope: -1.9926733
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  listenerAmplitude: 1
+  listenerFrequency: 1
+  listenerDuration: 1

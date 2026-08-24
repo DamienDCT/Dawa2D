@@ -18,11 +18,15 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float attackCooldown = 1.5f;
 
     [SerializeField] private float damageValue = 2f;
+
+    [Header("Layer Mask")]
+    [SerializeField] private LayerMask enemyLayerMask;
+
     //private float attackTimer = 0f;
     private bool canAttack = true;
 
     private PolygonCollider2D poly;
-
+    private ContactFilter2D enemyContactFilter;
     private void Awake()
     {
         InputController.Instance.OnAttackButtonPressed += Attack;
@@ -30,6 +34,9 @@ public class PlayerAttack : MonoBehaviour
         poly = GetComponent<PolygonCollider2D>();
         GenerateArc();
         poly.enabled = false;
+        enemyContactFilter = new ContactFilter2D();
+        enemyContactFilter.SetLayerMask(enemyLayerMask);
+        enemyContactFilter.useLayerMask = true;
     }
 
 
@@ -41,11 +48,52 @@ public class PlayerAttack : MonoBehaviour
         StartCoroutine(DetectEnemies());
     }
 
+    /*private IEnumerator DetectEnemies()
+    {
+        poly.enabled = true;
+        canAttack = false;
+
+
+        var enemies = poly.GetContactColliders(enemyContactFilter);
+
+        foreach( var enemy in enemies )
+        {
+            Destructable destructable = enemy.GetComponent<Destructable>();
+            if(destructable == null)
+            {
+                Debug.Log("destructable = null");
+            }
+            destructable?.Hit(damageValue);
+        }
+
+        yield return new WaitForSeconds(attackCooldown);
+        poly.enabled = false;
+        canAttack = true;
+    }*/
     private IEnumerator DetectEnemies()
     {
         poly.enabled = true;
         canAttack = false;
-        Debug.Log("attack time");
+
+        Collider2D[] results = new Collider2D[16];
+        int count = Physics2D.OverlapCollider(poly, enemyContactFilter, results);
+
+        for (int i = 0; i < count; i++)
+        {
+            Destructable destructable = results[i].GetComponent<Destructable>();
+            if (destructable == null)
+            {
+                Debug.Log("destructable = null");
+                continue;
+            }
+
+            // ClosestPoint only needs the ENEMY collider (circle = convex)
+            // to be well-defined — it doesn't care that our poly is concave.
+            Vector2 contactPoint = results[i].ClosestPoint(transform.position);
+
+            Debug.Log(contactPoint);
+            destructable.Hit(damageValue, contactPoint);
+        }
 
         yield return new WaitForSeconds(attackCooldown);
         poly.enabled = false;

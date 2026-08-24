@@ -16,20 +16,21 @@ public class PlayerHealth : MonoBehaviour
         playerHealthUI.InitialiazeUI(maxHealth);
     }
 
-   /* public void Update()
+    public void Update()
     {
-        if(currentHealth > 0)
+        if (currentHealth > 0)
         {
-            if(Input.GetKeyDown(KeyCode.U))
+            if (Input.GetKeyDown(KeyCode.U))
             {
                 TakeDamage(1);
-            } else if(Input.GetKeyDown(KeyCode.V))
+            }
+            else if (Input.GetKeyDown(KeyCode.V))
             {
                 Heal(1);
             }
         }
     }
-*/
+
 
     public void TakeDamage(int amount)
     {

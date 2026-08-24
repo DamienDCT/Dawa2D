@@ -72,4 +72,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Tous les tests sont pas dans le git
-/Assets/TestDaynightCycle/*
+/[Aa]ssets/TestDaynightCycle/*
