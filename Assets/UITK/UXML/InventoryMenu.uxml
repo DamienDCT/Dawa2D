@@ -1,0 +1,27 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UITK/USS/InventoryMenu.uss?fileID=7433441132597879392&amp;guid=f4ab37fce12c1db4397b519b4e87bf0d&amp;type=3#InventoryMenu"/>
+    <ui:VisualElement name="Panel" class="panel-background hidden">
+        <ui:VisualElement name="Window" class="window" style="border-top-left-radius: 40px; border-top-right-radius: 40px; border-bottom-right-radius: 40px; border-bottom-left-radius: 40px; border-left-color: rgb(255, 218, 218); border-right-color: rgb(255, 218, 218); border-top-color: rgb(255, 218, 218); border-bottom-color: rgb(255, 218, 218); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; flex-direction: row;">
+            <ui:VisualElement name="LeftPart" class="left-part" style="justify-content: center; align-self: auto; align-content: auto;">
+                <ui:Button text="Items" name="ItemButton" double-click-selects-word="false" triple-click-selects-line="true" tooltip="" display-tooltip-when-elided="false" class="button-selector" style="opacity: 1; visibility: visible; overflow: visible;"/>
+                <ui:Button text="Spells" name="SpellButton" double-click-selects-word="false" triple-click-selects-line="false" display-tooltip-when-elided="false" class="button-selector"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="InventoryPart" class="inventory-part">
+                <ui:VisualElement name="ItemTopPart" style="flex-grow: 1; background-color: rgb(255, 176, 0); flex-direction: row; height: 50%; width: 100%;">
+                    <ui:VisualElement name="UniqueItemLeft" style="flex-grow: 1; background-color: rgb(131, 233, 255);"/>
+                    <ui:VisualElement name="UniqueItemRight" style="flex-grow: 1; background-color: rgb(229, 71, 255);"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="InventoryContainer" class="inventory-container"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="DetailItemPart" class="detail-item-part">
+                <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: center; width: 100%; height: 40%;">
+                    <ui:Image source="project://database/Assets/Sprites/UIButton42x.png?fileID=2800000&amp;guid=b248599e7ce08414da5e3dd28a77cfe6&amp;type=3#UIButton42x" name="ItemSprite" style="width: 50%; height: 50%;"/>
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-grow: 1; height: 60%; width: 100%; align-items: center;">
+                    <ui:Label text="{NOM ITEM}" name="ItemTitle" style="font-size: 55px;"/>
+                    <ui:Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." triple-click-selects-line="false" double-click-selects-word="false" display-tooltip-when-elided="false" name="ItemDescription" style="flex-wrap: wrap; white-space: normal; margin-left: 10%; margin-right: 10%; margin-top: 7%; font-size: 24px;"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

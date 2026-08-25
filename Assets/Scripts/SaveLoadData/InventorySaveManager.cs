@@ -14,7 +14,7 @@ public static class InventorySaveManager
 
         foreach (var item in inventory.GetStoredItems())
         {
-            data.itemIDs.Add(item.ID);
+            data.itemIDs.Add(item);
         }
 
         string json = JsonUtility.ToJson(data, true);
@@ -24,6 +24,7 @@ public static class InventorySaveManager
 
     public static void Load(PlayerInventory inventory)
     {
+        Debug.Log("coucou");
         if (!File.Exists(SavePath))
         {
             Debug.Log("Aucune sauvegarde trouvée.");
@@ -35,11 +36,11 @@ public static class InventorySaveManager
 
         inventory.ClearInventory();
 
-        foreach (int id in data.itemIDs)
+        foreach (var item in data.itemIDs)
         {
-            ItemSO item = ItemDatabase.Instance.GetItemByID(id);
-            if (item != null)
-                inventory.AddItem(item);
+           //ItemSO item = ItemDatabase.Instance.GetItemByID(item.ID);
+           
+            inventory.AddItem(item.itemID, item.quantity);
         }
 
         Debug.Log("Inventaire chargé !");
@@ -49,5 +50,5 @@ public static class InventorySaveManager
 [Serializable]
 public class InventorySaveData
 {
-    public List<int> itemIDs = new List<int>();
+    public List<SlotUI> itemIDs = new List<SlotUI>();
 }

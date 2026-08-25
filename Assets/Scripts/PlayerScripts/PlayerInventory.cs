@@ -1,5 +1,9 @@
-using UnityEngine;
+using JetBrains.Annotations;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -9,8 +13,8 @@ public class PlayerInventory : MonoBehaviour
     public const int SPELL_INVENTORY_SIZE = 40;
     public const int SELECTED_SPELLS_SIZE = 4;
 
-    [SerializeField] private List<ItemSO> storedItems = new List<ItemSO>();
-    [SerializeField] private List<ItemSO> storedSpells = new List<ItemSO>();
+    [SerializeField] private List<SlotUI> storedItems = new List<SlotUI>();
+    [SerializeField] private List<SlotUI> storedSpells = new List<SlotUI>();
 
     public ItemSO[] selectedSpells;
 
@@ -23,26 +27,47 @@ public class PlayerInventory : MonoBehaviour
 
     private void Start()
     {
-        AddItem(GameDatabases.Instance.GetItemDatabase().GetItemByID(0));
-        AddItem(GameDatabases.Instance.GetItemDatabase().GetItemByID(1));
-        AddSpell(GameDatabases.Instance.GetSpellDatabase().GetItemByID(0));
-        AddSpell(GameDatabases.Instance.GetSpellDatabase().GetItemByID(1));
+        AddItem(0, 10);
+        AddItem(1, 5);
+        //AddSpell(GameDatabases.Instance.GetSpellDatabase().GetItemByID(0));
+        //AddSpell(GameDatabases.Instance.GetSpellDatabase().GetItemByID(1));
+    }
+
+    private void Update()
+    {
+        if (Keyboard.current != null && Keyboard.current.mKey.wasPressedThisFrame)
+        {
+            InventorySaveManager.Save(this);
+        }
+
+        if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            InventorySaveManager.Load(this);
+        }
+
     }
 
 
 
-    public IReadOnlyList<ItemSO> GetStoredItems() => storedItems;
-    public IReadOnlyList<ItemSO> GetStoredSpells() => storedSpells;
+    public IReadOnlyList<SlotUI> GetStoredItems() => storedItems;
+    public IReadOnlyList<SlotUI> GetStoredSpells() => storedSpells;
 
-    public void AddItem(ItemSO item)
+    public void AddItem(int ID, int quantity)
     {
         if (storedItems.Count >= INVENTORY_SIZE)
         {
             Debug.Log("Inventaire plein !");
             return;
         }
-
-        storedItems.Add(item);
+        ItemSO item = GameDatabases.Instance.GetItemDatabase().GetItemByID(ID);
+        Debug.Log(item.name);
+        Debug.Log(item.sprite.name);
+        Sprite sprite = null;
+        if(item != null)
+        {
+            sprite = item.sprite;
+        }
+        storedItems.Add(new SlotUI(ID, quantity, sprite, item.itemNameLocalization, item.descriptionLocalization));
     }
 
     public void AddSpell(ItemSO item)
@@ -53,16 +78,24 @@ public class PlayerInventory : MonoBehaviour
             return;
         }
 
-        storedSpells.Add(item);
+        storedSpells.Add(new SlotUI(item.ID, -1, null, item.itemNameLocalization, item.descriptionLocalization));
     }
 
-    public void RemoveItem(ItemSO item)
+    public void RemoveItem(int itemID, int quantity)
     {
-        storedItems.Remove(item);
+        SlotUI item = storedItems.Where(t => t.itemID == itemID).First();
+        item.quantity -= quantity;
+        if(item.quantity <= 0)
+        {
+            storedItems.Remove(item);
+        }
+       // storedItems.Remove(item);
     }
 
-    public void RemoveSpell(ItemSO item)
+    public void RemoveSpell(int itemID)
     {
+        SlotUI item = storedItems.Where(t => t.itemID == itemID).First();
+
         storedSpells.Remove(item);
     }
 
@@ -74,5 +107,25 @@ public class PlayerInventory : MonoBehaviour
     public void ClearSpells()
     {
         storedSpells.Clear();
+    }
+}
+
+[System.Serializable]
+public struct SlotUI
+{
+    public int itemID;
+    public int quantity;
+    [System.NonSerialized] public Sprite itemSprite;
+    [System.NonSerialized] public string itemNameLocalization;
+    [System.NonSerialized] public string descriptionLocalization;
+
+    public SlotUI(int itemID, int quantity, Sprite sprite, string itemNameLoc, string descNameLoc)
+    {
+        this.itemID = itemID;
+        this.quantity = quantity;
+        this.itemSprite = sprite;
+
+        this.itemNameLocalization = itemNameLoc;
+        this.descriptionLocalization = descNameLoc;
     }
 }

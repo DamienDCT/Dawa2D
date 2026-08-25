@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PauseMenuUI : MonoBehaviour
 {
     [SerializeField] private GameObject menuUI;
     [SerializeField] private RectTransform parentControlButtons;
+
 
     public bool IsGamePaused { get; private set; }
 

@@ -1,0 +1,10 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UITK/USS/InventorySlotTemplate.uss?fileID=7433441132597879392&amp;guid=4aaa0d0d23c05ec478c1179051fc96ab&amp;type=3#InventorySlotTemplate"/>
+    <ui:VisualElement name="SlotMain" style="flex-grow: 1; justify-content: center; align-self: auto; width: 100%; height: 100%; align-items: center; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+        <ui:Image name="SlotDotImage" source="project://database/Assets/Sprites/UIButton42x.png?fileID=2800000&amp;guid=b248599e7ce08414da5e3dd28a77cfe6&amp;type=3#UIButton42x" style="width: 30%; height: 30%;"/>
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(226, 37, 37, 0); width: 100%; height: 100%; position: absolute; justify-content: center;">
+            <ui:Image name="ItemIconImage" source="project://database/Assets/TestDaynightCycle/Cainos/Pixel%20Art%20Platformer%20-%20Village%20Props/Texture/TX%20Village%20Props.png?fileID=21300248&amp;guid=7810966f0f690954c87305933cabf2b0&amp;type=3#TX Village Props - Cloth 05" class="slot-image"/>
+            <ui:Label text="0" enable-rich-text="false" name="QuantityLabel" style="position: absolute; right: 9px; bottom: -3px; font-size: 10px; color: rgb(255, 255, 255);"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

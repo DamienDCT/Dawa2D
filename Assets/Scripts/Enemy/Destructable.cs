@@ -57,15 +57,15 @@ public class Destructable : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.mKey.wasPressedThisFrame)
-        {
-            StartCoroutine(Die());
-        }
+        //if (Keyboard.current != null && Keyboard.current.mKey.wasPressedThisFrame)
+        //{
+        //    StartCoroutine(Die());
+        //}
 
-        if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            ResetEnemy();
-        }
+        //if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
+        //{
+        //    ResetEnemy();
+        //}
     }
 
     private void ResetEnemy()

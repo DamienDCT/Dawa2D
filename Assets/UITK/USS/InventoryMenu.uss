@@ -1,0 +1,65 @@
+:root {
+}
+
+.panel-background {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.929);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.window {
+    flex-grow: 1;
+    background-color: rgb(113, 113, 113);
+    margin-top: 50px;
+    margin-right: 100px;
+    margin-bottom: 50px;
+    margin-left: 100px;
+}
+
+.hidden {
+    display: none;
+}
+
+.left-part {
+    flex-grow: 1;
+    background-color: rgb(243, 31, 31);
+    width: 2%;
+    height: 100%;
+}
+
+.inventory-part {
+    flex-grow: 1;
+    background-color: rgb(162, 252, 255);
+    width: 50%;
+    height: 100%;
+}
+
+.detail-item-part {
+    flex-grow: 1;
+    background-color: rgb(255, 146, 146);
+    width: 30%;
+    height: 100%;
+}
+
+.button-selector {
+    width: 95%;
+    height: 7%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background-color: rgb(255, 255, 255);
+    font-size: 24px;
+}
+
+.inventory-container {
+    flex-grow: 1;
+    background-color: rgb(22, 255, 0);
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    height: 50%;
+    margin-left: 0;
+    padding-right: 150px;
+    padding-left: 150px;
+    align-items: center;
+    align-content: center;
+}

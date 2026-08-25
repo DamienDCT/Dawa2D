@@ -44,29 +44,29 @@ public class InventoryUI : MonoBehaviour
         var items = PlayerInventory.Instance.GetStoredItems();
 
         // Items slots
-        for (int i = 0; i < itemSlots.Count; i++)
-        {
-            if (i < items.Count)
-                itemSlots[i].SetItemIcon(items[i]);
-            else
-                itemSlots[i].SetItemIcon(null); // vide
-        }
+        //for (int i = 0; i < itemSlots.Count; i++)
+        //{
+        //    if (i < items.Count)
+        //        itemSlots[i].SetItemIcon(items[i]);
+        //    else
+        //        itemSlots[i].SetItemIcon(null); // vide
+        //}
 
         // 
 
         var spells = PlayerInventory.Instance.GetStoredSpells();
 
         // Items slots
-        for (int i = 0; i < spellSlots.Count; i++)
-        {
-            if (i < spells.Count)
-            {
-                spellSlots[i].SetItemIcon(spells[i]);
-                spellSlots[i].SetOutputOnClick(null);
-            }
-            else
-                spellSlots[i].SetItemIcon(null); // vide
-        }
+        //for (int i = 0; i < spellSlots.Count; i++)
+        //{
+        //    if (i < spells.Count)
+        //    {
+        //        spellSlots[i].SetItemIcon(spells[i]);
+        //        spellSlots[i].SetOutputOnClick(null);
+        //    }
+        //    else
+        //        spellSlots[i].SetItemIcon(null); // vide
+        //}
     }
 
     public void FocusFirstSlot()
