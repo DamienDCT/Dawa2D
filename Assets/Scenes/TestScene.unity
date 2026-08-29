@@ -7993,6 +7993,12 @@ MonoBehaviour:
   _slotTemplateAsset: {fileID: 9197481963319205126, guid: a2e49d6e6bb424c49afb8529b9facb01, type: 3}
   panelRenderer: {fileID: 783245984}
   itemTableLocalizationName: Items
+  slotImageSize:
+    m_Scale: {x: 0, y: 0, z: 0}
+    m_IsNone: 0
+  slotDotSize:
+    m_Scale: {x: 0, y: 0, z: 0}
+    m_IsNone: 0
 --- !u!1001 &786582118
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11779,7 +11785,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207055745}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!4 &1207055749
 Transform:
   m_ObjectHideFlags: 0
@@ -14941,7 +14947,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storedItems: []
   storedSpells: []
-  selectedSpells: []
 --- !u!1 &1505110339
 GameObject:
   m_ObjectHideFlags: 0
@@ -18795,7 +18800,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1816524995
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19172,7 +19177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1853207007
 RectTransform:
   m_ObjectHideFlags: 0

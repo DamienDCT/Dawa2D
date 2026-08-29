@@ -1,6 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UITK/USS/InventoryMenu.uss?fileID=7433441132597879392&amp;guid=f4ab37fce12c1db4397b519b4e87bf0d&amp;type=3#InventoryMenu"/>
-    <ui:VisualElement name="Panel" class="panel-background hidden">
+    <Style src="project://database/Assets/UITK/USS/InventorySlotTemplate.uss?fileID=7433441132597879392&amp;guid=4aaa0d0d23c05ec478c1179051fc96ab&amp;type=3#InventorySlotTemplate"/>
+    <ui:VisualElement name="Panel" class="panel-background">
         <ui:VisualElement name="Window" class="window" style="border-top-left-radius: 40px; border-top-right-radius: 40px; border-bottom-right-radius: 40px; border-bottom-left-radius: 40px; border-left-color: rgb(255, 218, 218); border-right-color: rgb(255, 218, 218); border-top-color: rgb(255, 218, 218); border-bottom-color: rgb(255, 218, 218); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; flex-direction: row;">
             <ui:VisualElement name="LeftPart" class="left-part" style="justify-content: center; align-self: auto; align-content: auto;">
                 <ui:Button text="Items" name="ItemButton" double-click-selects-word="false" triple-click-selects-line="true" tooltip="" display-tooltip-when-elided="false" class="button-selector" style="opacity: 1; visibility: visible; overflow: visible;"/>
@@ -8,10 +9,15 @@
             </ui:VisualElement>
             <ui:VisualElement name="InventoryPart" class="inventory-part">
                 <ui:VisualElement name="ItemTopPart" style="flex-grow: 1; background-color: rgb(255, 176, 0); flex-direction: row; height: 50%; width: 100%;">
-                    <ui:VisualElement name="UniqueItemLeft" style="flex-grow: 1; background-color: rgb(131, 233, 255);"/>
-                    <ui:VisualElement name="UniqueItemRight" style="flex-grow: 1; background-color: rgb(229, 71, 255);"/>
+                    <ui:VisualElement name="UniqueItemsInventory" enabled="true" style="flex-grow: 1; flex-direction: row; width: 100%; height: 100%; position: absolute;">
+                        <ui:VisualElement name="UniqueItemLeft" style="flex-grow: 1; background-color: rgb(131, 233, 255);"/>
+                        <ui:VisualElement name="UniqueItemRight" style="flex-grow: 1; background-color: rgb(229, 71, 255);"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="SpellInventory" enabled="true" style="flex-grow: 1; flex-direction: row; width: 100%; height: 100%; position: absolute; display: flex; opacity: 1; background-color: rgb(55, 27, 27);">
+                        <ui:Image source="project://database/Assets/Sprites/sortsOverlay.png?fileID=2800000&amp;guid=ed8b6625b249dfb439489d6246068f84&amp;type=3#sortsOverlay" name="BackgroundSpellImage" style="width: 50%; height: 100%; align-self: center; position: relative; top: 0%; bottom: 0%; left: 25%; right: 25%; display: flex;"/>
+                    </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="InventoryContainer" class="inventory-container"/>
+                <ui:VisualElement name="InventoryContainer" class="inventory-container" style="padding-top: 0; padding-bottom: 0;"/>
             </ui:VisualElement>
             <ui:VisualElement name="DetailItemPart" class="detail-item-part">
                 <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: center; width: 100%; height: 40%;">
