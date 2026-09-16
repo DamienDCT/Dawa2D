@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UITK/USS/ShopItem.uss?fileID=7433441132597879392&amp;guid=485b3507deb02c348b3411d17f64a064&amp;type=3#ShopItem"/>
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+        <ui:Image source="project://database/Assets/Sprites/UIButton42x.png?fileID=2800000&amp;guid=b248599e7ce08414da5e3dd28a77cfe6&amp;type=3#UIButton42x" name="ItemIcon" class="icon-item"/>
+        <ui:Label text="{nom item}" name="ItemName" double-click-selects-word="false" triple-click-selects-line="false" class="label-item"/>
+        <ui:VisualElement name="Prix" class="price-element">
+            <ui:Label text="800" name="ItemCost" class="label-price"/>
+            <ui:Image source="project://database/Assets/Samples/Input%20System/1.11.2/Rebinding%20UI/Icons/PS4_Circle.png?fileID=2800000&amp;guid=c7f381483fb41f14e935b2d6d9fec62f&amp;type=3#PS4_Circle" class="cash-item"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

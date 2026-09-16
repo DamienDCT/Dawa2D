@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public class InventoryUITK : MonoBehaviour
+public class InventoryUITK : BasedUITK
 {
     [SerializeField] private VisualTreeAsset _slotTemplateAsset;
 
@@ -15,9 +15,7 @@ public class InventoryUITK : MonoBehaviour
 
     private VisualElement inventoryItemsContainer;
     private VisualElement root;
-    private VisualElement inventoryElement;
 
-    private bool IsInventoryShown = false;
 
     // Detail item/spell description
     private Label itemNameLabel;
@@ -58,33 +56,12 @@ public class InventoryUITK : MonoBehaviour
     private float lastNavigationTime = 0.0f;
     private const float NAVIGATION_DELAY = 0.2f;
 
+    private int _uiVersion = -1;
+
     private void Reset()
     {
         slotImageSize = new Scale(new Vector2(2.5f, 2.5f));
         slotDotSize = new Scale(Vector2.one);
-    }
-
-    private void Update()
-    {
-        if (Keyboard.current != null && Keyboard.current.tabKey.wasPressedThisFrame)
-        {
-            ToggleInventory();
-        }
-    }
-
-    private void ToggleInventory()
-    {
-        IsInventoryShown = !IsInventoryShown;
-        if (IsInventoryShown)
-        {
-            ShowItems(null);
-            inventoryElement?.RemoveFromClassList("hidden");
-        }
-        else
-        {
-            inventoryElement?.AddToClassList("hidden");
-        }
-
     }
 
     private void OnEnable()
@@ -98,10 +75,22 @@ public class InventoryUITK : MonoBehaviour
         selectedSlots = new VisualElement[4];
     }
 
-    private void OnUIReload(PanelRenderer panelRenderer, VisualElement rootElement)
+    protected override void OnMenuOpened()
     {
+        ShowItems(null);
+    }
+
+    private void OnUIReload(PanelRenderer panelRenderer, VisualElement rootElement, int version)
+    {
+        // Si la version est identique, on évite de reload les valeurs
+        if (_uiVersion == version)
+            return;
+
+        // On màj la version du UI
+        _uiVersion = version;
+
         root = rootElement;
-        inventoryElement = root.Q<VisualElement>("Panel");
+        menuElement = root.Q<VisualElement>("Panel");
         // Ton initialisation d'UI ici
         inventoryItemsContainer = root.Q<VisualElement>("InventoryContainer");
 

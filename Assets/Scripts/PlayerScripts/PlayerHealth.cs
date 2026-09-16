@@ -8,12 +8,19 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth; // Current health of the player
     [SerializeField] private int maxHealth = 5; // Max amount of hearts
 
+    private Destructable destructable;
+
+    private void Awake()
+    {
+        destructable = GetComponent<Destructable>();
+    }
+
     private void Start()
     {
         currentHealth = maxHealth;
 
         //   PlayerHealthUI.Instance.InitialiazeUI(maxHealth);
-        playerHealthUI.InitialiazeUI(maxHealth);
+     //   playerHealthUI.InitialiazeUI(maxHealth);
     }
 
     public void Update()
@@ -36,6 +43,8 @@ public class PlayerHealth : MonoBehaviour
     {
         // We update the health
         currentHealth = Mathf.Max(0, currentHealth - amount);
+
+        //destructable
 
         // Die if we have less or equal 0 hearts
         if(currentHealth <= 0)

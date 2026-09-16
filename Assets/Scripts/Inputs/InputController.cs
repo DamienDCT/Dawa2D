@@ -19,7 +19,10 @@ public class InputController : MonoBehaviour
     public event EventHandler OnPausePressed; // Event which is fired when the pause button is pressed
     public event EventHandler<bool> OnPhaseSelectorChange; // Event which is fired when the phase selector is hold or released
     public event EventHandler<PlayerPowerUpArgs> OnPowerUpButtonPressed; // Event which is fired when the powerup button is fired
-    public event EventHandler OnAttackButtonPressed; // Event which is fired when the attack button is pressed
+    public event EventHandler OnAttackButtonPressed; // Event which is fired when the attack button is 
+
+    // UI ONLY
+    public event EventHandler OnBackPressed; // Event which is fired when cancel button is pressed
 
     private void Awake()
     {
@@ -39,6 +42,7 @@ public class InputController : MonoBehaviour
 
         if (playerInput != null)
         {
+            // PLAYER ACTION MAP
             // Movement
             playerInput.actions["Move"].performed += ctx => MovementVector = ctx.ReadValue<Vector2>();
             playerInput.actions["Move"].canceled += ctx => MovementVector = Vector2.zero;
@@ -59,6 +63,10 @@ public class InputController : MonoBehaviour
 
             // Attack Input
             playerInput.actions["Attack"].performed += OnAttackPressed;
+
+
+            // UI ACTION MAP
+            playerInput.actions["Cancel"].performed += ctx => OnBackPressed?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -93,6 +101,11 @@ public class InputController : MonoBehaviour
         {
             OnPhaseSelectorChange?.Invoke(this, false);
         }
+    }
+
+    public void SwapInputActionMap(string nextActionMap)
+    {
+        playerInput.SwitchCurrentActionMap(nextActionMap);
     }
 
     private void LateUpdate()

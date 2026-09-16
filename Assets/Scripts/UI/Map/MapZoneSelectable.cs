@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class MapZoneSelectable : MonoBehaviour,
     public float zoomScale = 2f;
     public Sprite zoneSprite;
     public string valueToZoom;
+    [SerializeField] private MapZoneObject mapZoneObject;
 
     private void Start()
     {
@@ -42,6 +44,13 @@ public class MapZoneSelectable : MonoBehaviour,
 
     void SelectZone()
     {
-        mapController.ZoomToZone(zoomPosition, zoomScale, zoneSprite, valueToZoom);
+        mapController.ZoomToZone(zoomPosition, zoomScale, mapZoneObject);
     }
+}
+
+[System.Serializable]
+public class MapZoneObject
+{
+    public GameObject mapPrefab;
+    public MapDragProfile mapDragProfile;
 }

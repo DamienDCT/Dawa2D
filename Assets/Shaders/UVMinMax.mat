@@ -54,13 +54,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DissolveAmount: 0
+    - _DissolveAmount: 0.42
     - _OutlineThickness: 0.1
     - _Scale: 1
     - _ScalePoint: 0
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 4, g: 0, b: 3.871595, a: 1}
-    - _SpriteMinMax: {r: 0.46015224, g: 0.26448488, b: 0.505709, a: 0.3470872}
+    - _SpriteMinMax: {r: 0, g: 0, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

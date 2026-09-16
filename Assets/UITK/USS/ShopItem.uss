@@ -1,0 +1,50 @@
+:root {
+}
+
+.icon-item {
+    width: 50px;
+    height: 50px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding-top: 3px;
+    padding-right: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+}
+
+.label-item {
+    -unity-text-align: middle-left;
+    margin-left: 4px;
+    margin-bottom: 4px;
+    padding-right: 4px;
+    padding-left: 4px;
+    flex-grow: 1;
+    width: 61%;
+    flex-shrink: 1;
+}
+
+.price-element {
+    flex-grow: 0;
+    justify-content: center;
+    flex-direction: row;
+    width: 25%;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+.label-price {
+    -unity-text-align: middle-center;
+    margin-bottom: 4px;
+    padding-right: 0;
+    padding-left: 4px;
+    margin-left: 4px;
+    display: flex;
+    margin-right: 0;
+}
+
+.cash-item {
+    width: -3483px;
+    flex-grow: 0;
+    margin-left: 0;
+    background-color: rgba(255, 0, 0, 0);
+}

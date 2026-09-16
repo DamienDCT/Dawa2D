@@ -14,7 +14,7 @@ public class PlayerHealthUI : MonoBehaviour
         hearts = new List<Image>();
     }
 
-    public void InitialiazeUI(int maxHealth)
+    public void InitializeUI(int maxHealth)
     {
         this.maxHealth = maxHealth;
         for(int i = 0; i < maxHealth; i++)

@@ -9,6 +9,8 @@ public class DestructableEditor : Editor
     SerializedProperty hitTypeProp;
     SerializedProperty hitColorProp;
     SerializedProperty blinkTimeProp;
+    SerializedProperty playerHealth;
+    SerializedProperty isPlayerDestructable;
 
     void OnEnable()
     {
@@ -16,6 +18,8 @@ public class DestructableEditor : Editor
         hitTypeProp = serializedObject.FindProperty("hitType");
         hitColorProp = serializedObject.FindProperty("hitColor");
         blinkTimeProp = serializedObject.FindProperty("blinkTime");
+        playerHealth = serializedObject.FindProperty("playerHealth");
+        isPlayerDestructable = serializedObject.FindProperty("isPlayerDestructable");
     }
 
     public override void OnInspectorGUI()
@@ -41,7 +45,23 @@ public class DestructableEditor : Editor
             // On retire la tabulation
             EditorGUI.indentLevel--;
         }
-        DrawPropertiesExcluding(serializedObject, "m_Script", "hitType", "hitColor", "blinkTime");
+
+
+
+        DrawPropertiesExcluding(serializedObject, "m_Script", "hitType", "hitColor", "blinkTime", "playerHealth");
+
+        if (isPlayerDestructable.boolValue)
+        {
+            EditorGUI.indentLevel++;
+
+            // On affiche les variables conditionnelles
+            EditorGUILayout.PropertyField(playerHealth);
+
+
+            // On retire la tabulation
+            EditorGUI.indentLevel--;
+        }
+
         // On applique les modifications (sauvegarde quand on change une valeur)
         serializedObject.ApplyModifiedProperties();
     }

@@ -1,204 +1,167 @@
-using System;
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class Destructable : MonoBehaviour
 {
     [Header("Die Animation Settings")]
-    [SerializeField] private float dissolveTimer;
-    [SerializeField] private VisualEffect dieVFXPrefab;
+    [SerializeField] protected float dissolveTimer;
+    [SerializeField] protected VisualEffect dieVFXPrefab;
 
     [Header("Screen Shake Profile")]
-    [SerializeField] private ScreenShakeProfile profile;
-    private CinemachineImpulseSource impulseSource;
+    [SerializeField] protected ScreenShakeProfile profile;
+    protected CinemachineImpulseSource impulseSource;
 
     [Space]
     [Header("Other settings")]
-    [SerializeField] private HitType hitType;
-    [SerializeField] private float blinkTime;
-    [SerializeField] private Color hitColor;
+    [SerializeField] protected HitType hitType;
+    [SerializeField] protected float blinkTime;
+    [SerializeField] protected Color hitColor;
 
-    [SerializeField] private VisualEffect customHitEffect;
-    [SerializeField] private AudioSource customHitSound;
+    [SerializeField] protected VisualEffect customHitEffect;
+    [SerializeField] protected AudioSource customHitSound;
 
-    [SerializeField] private float healthAmount;
+    [SerializeField] protected float healthAmount;
 
-    [SerializeField] private Transform hitDamageVFXPrefab;
-    private const string PARAMETER_HIT_VALUE_SHADER = "_BlendHitValue";
-    private const string PARAMETER_SCALE_VALUE = "_Scale";
+    [SerializeField] protected Transform hitDamageVFXPrefab;
 
+    // Calculés une seule fois pour toute la classe au lieu de rappeler
+    // Shader.PropertyToID à chaque Hit/Die (c'était fait à chaque appel avant).
+    private static readonly int ShaderHitValue = Shader.PropertyToID("_BlendHitValue");
+    private static readonly int ShaderScaleValue = Shader.PropertyToID("_Scale");
 
-    //[SerializeField] private 
+    [SerializeField] protected SpriteRenderer spriteRenderer;
+    protected Material hitMaterial;
 
-    private SpriteRenderer spriteRenderer;
-    private Material hitMaterial;
+    protected float maxHealth;
+    protected bool canBeHit = true;
 
-    private float maxHealth;
-    private bool canBeHit = true;
-
-    private void Awake()
+    protected virtual void Awake()
     {
         maxHealth = healthAmount;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        hitMaterial = spriteRenderer?.material;
-        TryGetComponent<CinemachineImpulseSource>(out impulseSource);
+        hitMaterial = spriteRenderer != null ? spriteRenderer.material : null;
+        TryGetComponent(out impulseSource);
 
-
-        if(hitType == HitType.Color)
+        if (hitType == HitType.Color && hitMaterial != null)
         {
             hitMaterial.SetColor("_HitColor", hitColor);
         }
-
     }
 
-    private void Update()
-    {
-        //if (Keyboard.current != null && Keyboard.current.mKey.wasPressedThisFrame)
-        //{
-        //    StartCoroutine(Die());
-        //}
+    public float GetHealthAmount() => healthAmount;
+    public float GetMaxHealth() => maxHealth;
+    public bool IsDead() => healthAmount <= 0f;
 
-        //if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
-        //{
-        //    ResetEnemy();
-        //}
-    }
-
-    private void ResetEnemy()
-    {
-        int id = Shader.PropertyToID(PARAMETER_SCALE_VALUE);
-
-        Material material = spriteRenderer.material;
-
-
-
-
-
-        if (material.HasProperty(id))
-        {
-            LeanTween.scaleX(this.transform.gameObject, 1f, 0.01f);
-
-            material.SetFloat(id, 1f);
-        }
-    }
-
+    // Point d'entrée commun à tous les Destructable (joueur ou ennemi).
+    // Les sous-classes ne touchent pas à cette méthode : elles redéfinissent
+    // les hooks OnDamaged / OnDeath ci-dessous pour ajouter leur propre logique.
     public void Hit(float damageAmount, Vector2 hitPosition)
     {
         if (!canBeHit) return;
+
         healthAmount -= damageAmount;
         canBeHit = false;
+
+        OnDamaged(damageAmount, hitPosition);
+
         if (impulseSource != null)
             ApplyShakeEffect();
 
         ShowHitEffects();
-        ShowHitVisuals(hitPosition);
 
-        if(IsEnemyDead())
+        // hitPosition == negativeInfinity sert de sentinelle "pas de position
+        // fournie" : le test était inversé dans la version originale (== au
+        // lieu de !=), ce qui cachait les effets visuels dès qu'une vraie
+        // position était donnée.
+        if (hitPosition != Vector2.negativeInfinity)
+            ShowHitVisuals(hitPosition);
+
+        if (IsDead())
+        {
+            OnDeath();
             StartCoroutine(Die());
+        }
     }
+
+    // Hook : appelé à chaque hit, avant les effets visuels/sonores.
+    // PlayerDestructable l'utilise pour mettre à jour l'UI de vie.
+    protected virtual void OnDamaged(float damageAmount, Vector2 hitPosition) { }
+
+    // Hook : appelé une seule fois, quand la santé passe à 0 (avant la
+    // coroutine de dissolution). Utile pour du loot, un game over, etc.
+    protected virtual void OnDeath() { }
 
     private void ApplyShakeEffect()
     {
         CameraShakeTrigger.Instance.ScreenShakeFromProfile(profile, impulseSource);
     }
 
-    private IEnumerator Die()
+    protected virtual IEnumerator Die()
     {
         float currentTime = 0f;
-        var material = spriteRenderer.material;
-        
-        int id = Shader.PropertyToID(PARAMETER_SCALE_VALUE);
-        LeanTween.scaleX(this.transform.gameObject, 0f, dissolveTimer);
-        Instantiate(dieVFXPrefab, transform.position, Quaternion.identity);
-       // CameraShakeTrigger.Instance.TriggerShake();
+
+        if (dieVFXPrefab != null)
+            Instantiate(dieVFXPrefab, transform.position, Quaternion.identity);
+
+        LeanTween.scaleX(gameObject, 0f, dissolveTimer);
 
         while (currentTime < dissolveTimer)
         {
             currentTime += Time.deltaTime;
             float currentScale = Mathf.Lerp(1f, 0f, currentTime / dissolveTimer);
 
-            if (material.HasProperty(id))
-            {
-                material.SetFloat(id, currentScale);
-            }
+            if (hitMaterial != null && hitMaterial.HasProperty(ShaderScaleValue))
+                hitMaterial.SetFloat(ShaderScaleValue, currentScale);
+
             yield return null;
         }
     }
 
-    private bool IsEnemyDead()
-    {
-        return healthAmount <= 0f;
-    }
-
     private void ShowHitEffects()
     {
-        // Play the SFX in case it exists
-        if (customHitSound != null)
-        {
-            customHitSound.Play();
-        }
-
-        // Play the VFX in case it exists
-        if (customHitEffect != null)
-        {
-            customHitEffect.Play();
-        }
+        if (customHitSound != null) customHitSound.Play();
+        if (customHitEffect != null) customHitEffect.Play();
     }
 
     private void ShowHitVisuals(Vector2 hitPosition)
     {
         if (hitType == HitType.None) return;
 
-        if(hitDamageVFXPrefab != null)
-        {
-            Transform _vfxInstantiated = Instantiate(hitDamageVFXPrefab, hitPosition, Quaternion.identity);
-          //  _vfxInstantiated.GetComponent<VisualEffect>().Play();
-        }
+        if (hitDamageVFXPrefab != null)
+            Instantiate(hitDamageVFXPrefab, hitPosition, Quaternion.identity);
 
-        switch (hitType)
-        {
-            case HitType.Color:
-                StartCoroutine(ShowSprite());
-                break;
-            default:
-                return;
-        }
+        if (hitType == HitType.Color)
+            StartCoroutine(ShowSprite());
     }
 
     private IEnumerator ShowSprite()
     {
-        float duration = blinkTime / 2; // Environ 3 frames
-        float timer = 0f;
+        if (hitMaterial == null)
+        {
+            canBeHit = true;
+            yield break;
+        }
 
-        // Phase 1 : Monter à 1
+        float duration = blinkTime / 2f; // Environ 3 frames
+
+        float timer = 0f;
         while (timer <= duration)
         {
             timer += Time.deltaTime;
-            float t = Mathf.Lerp(0f, 1f, timer / duration);
-            spriteRenderer.material.SetFloat(PARAMETER_HIT_VALUE_SHADER, t);
-
+            hitMaterial.SetFloat(ShaderHitValue, Mathf.Lerp(0f, 1f, timer / duration));
             yield return null;
         }
-
-        spriteRenderer.material.SetFloat(PARAMETER_HIT_VALUE_SHADER, 1f);
+        hitMaterial.SetFloat(ShaderHitValue, 1f);
 
         timer = 0f;
-
-        // Phase 2 : Redescendre à 0
         while (timer <= duration)
         {
             timer += Time.deltaTime;
-            float t = Mathf.Lerp(1f, 0f, timer / duration);
-            spriteRenderer.material.SetFloat(PARAMETER_HIT_VALUE_SHADER, t);
-
+            hitMaterial.SetFloat(ShaderHitValue, Mathf.Lerp(1f, 0f, timer / duration));
             yield return null;
         }
-
-        spriteRenderer.material.SetFloat(PARAMETER_HIT_VALUE_SHADER, 0f);
+        hitMaterial.SetFloat(ShaderHitValue, 0f);
 
         canBeHit = true;
     }

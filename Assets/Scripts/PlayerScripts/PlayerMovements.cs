@@ -16,6 +16,8 @@ public class PlayerMovements : MonoBehaviour
     //just paste in all the parameters, though you will need to manuly change all references in this script
     public PlayerData Data;
 
+    public static PlayerMovements Instance;
+
     #region COMPONENTS
     public Rigidbody2D RB { get; private set; }
     //Script to handle all player animations, all references can be safely removed if you're importing into your own project.
@@ -93,13 +95,17 @@ public class PlayerMovements : MonoBehaviour
     #endregion
 
 
-    private float _fallSpeedYDampingChangeThreshold;
-    private bool _isFallingCameraActive = false;
 
     private void Awake()
     {
         RB = GetComponent<Rigidbody2D>();
-        
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
     //    AnimHandler = GetComponent<PlayerAnimator>();
     }
 
