@@ -108,6 +108,7 @@
   <Project Path="Unity.Behavior.Serialization.Editor.csproj" />
   <Project Path="Unity.PathTracing.Editor.csproj" />
   <Project Path="UnityEngine.XR.LegacyInputHelpers.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="Unity.InternalAPIEngineBridge.RenderPipelines.Core.Editor.csproj" />
   <Project Path="Unity.InternalAPIEngineBridge.004.csproj" />
   <Project Path="Unity.RenderPipelines.Core.Runtime.Shared.csproj" />
@@ -133,7 +134,6 @@
   <Project Path="Unity.ScriptableBuildPipeline.csproj" />
   <Project Path="Unity.InternalAPIEngineBridge.013.csproj" />
   <Project Path="Unity.InternalAPIEngineBridge.001.csproj" />
-  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="Unity.ShaderGraph.Utilities.csproj" />
   <Project Path="Unity.InputSystem.ForUI.Editor.csproj" />
   <Project Path="Unity.RenderPipeline.Universal.ShaderLibrary.csproj" />

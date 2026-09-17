@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEditor; // Attention, c'est indispensable pour l'éditeur
+using UnityEditor;
 
-// On indique à Unity que ce script modifie l'inspecteur de "HitEffect"
 [CustomEditor(typeof(Destructable))]
 public class DestructableEditor : Editor
 {

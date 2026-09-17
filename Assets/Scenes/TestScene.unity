@@ -11674,7 +11674,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1163055608
 Transform:
   m_ObjectHideFlags: 0
@@ -13712,6 +13712,38 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2456891436082430004, guid: 43896b29648b21d43818504401c0f5c3, type: 3}
   m_PrefabInstance: {fileID: 1344963615}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1346202872
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1346202873}
+  m_Layer: 0
+  m_Name: Shops
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1346202873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346202872}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1470677979}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1384386936
 GameObject:
   m_ObjectHideFlags: 0
@@ -14833,6 +14865,64 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1470677978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1470677979}
+  - component: {fileID: 1470677980}
+  m_Layer: 0
+  m_Name: "Shopn\xB01"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1470677979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470677978}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1346202873}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1470677980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470677978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d8cd1ec10d8f12418ce7288d2b9426c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shop
+  itemShopList:
+  - soldItem: {fileID: 11400000, guid: 0127a534703811144b9e2b183336d307, type: 2}
+    quantityRemaining: 5
+    price: 500
+    isUniqueItem: 1
+    itemLocalizationShopDescription: shopitemdescription_001
+  - soldItem: {fileID: 11400000, guid: 1165740a741bb23428efd2386e469b9f, type: 2}
+    quantityRemaining: 2
+    price: 200
+    isUniqueItem: 0
+    itemLocalizationShopDescription: shopitemdescription_002
+  hasDialogueBeforeShopOpens: 0
+  startDialogNode: {fileID: 0}
+  rangeDetection: 0
 --- !u!1 &1477371379
 GameObject:
   m_ObjectHideFlags: 0
@@ -22999,3 +23089,4 @@ SceneRoots:
   - {fileID: 1992326023}
   - {fileID: 783245985}
   - {fileID: 796678564}
+  - {fileID: 1346202873}
