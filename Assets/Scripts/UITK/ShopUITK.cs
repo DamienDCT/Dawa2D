@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class ShopUITK : BasedUITK
 {
+    public static ShopUITK Instance;
+
     // Template of one shop item
     [SerializeField] private VisualTreeAsset _shopItemTemplate;
     // Panel renderer to register events
@@ -21,12 +23,24 @@ public class ShopUITK : BasedUITK
 
     private Shop currentShop;
 
-    private void OnEnable()
+    private void Awake()
     {
         panelRenderer = GetComponent<PanelRenderer>();
+        Instance = this;
+    }
+
+    private void OnEnable()
+    {
+        if(panelRenderer != null)
+            panelRenderer = GetComponent<PanelRenderer>();
         panelRenderer.RegisterUIReloadCallback(OnUIReload);
+    }
 
-
+    private void OnDisable()
+    {
+        if (panelRenderer != null)
+            panelRenderer = GetComponent<PanelRenderer>();
+        panelRenderer.UnregisterUIReloadCallback(OnUIReload);
     }
 
     private void OnUIReload(PanelRenderer panelRenderer, VisualElement rootElement, int version)
@@ -49,6 +63,9 @@ public class ShopUITK : BasedUITK
 
     private void ShowShopItems()
     {
+        if (currentShop == null)
+            return;
+
         shopItemsContainer.Clear();
 
         List<ShopItem> items = currentShop.GetListItemShop;
@@ -82,5 +99,15 @@ public class ShopUITK : BasedUITK
     protected override void OnMenuOpened()
     {
         
+    }
+
+    public void SetShop(Shop shop)
+    {
+        this.currentShop = shop;
+
+        if (!IsMenuOpened)
+            ShowShopItems();
+
+        base.ToggleMenu();
     }
 }

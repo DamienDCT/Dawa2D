@@ -21,6 +21,7 @@ public class InteractionZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!other.CompareTag("Player")) return;
         if (!other.TryGetComponent(out PlayerInteraction player)) return;
 
         player.SetCurrentInteractable(interactable);
@@ -28,6 +29,7 @@ public class InteractionZone : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (!other.CompareTag("Player")) return;
         if (!other.TryGetComponent(out PlayerInteraction player)) return;
 
         player.ClearCurrentInteractable(interactable);

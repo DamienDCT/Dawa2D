@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Unity.GraphToolkit.Editor;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;

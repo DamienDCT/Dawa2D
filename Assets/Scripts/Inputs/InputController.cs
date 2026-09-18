@@ -16,13 +16,15 @@ public class InputController : MonoBehaviour
     public bool JumpPressed { get; private set; } // Boolean if the jump is pressed
   //  public bool JumpHeld { get; private set; } 
 
-    public event EventHandler OnPausePressed; // Event which is fired when the pause button is pressed
-    public event EventHandler<bool> OnPhaseSelectorChange; // Event which is fired when the phase selector is hold or released
-    public event EventHandler<PlayerPowerUpArgs> OnPowerUpButtonPressed; // Event which is fired when the powerup button is fired
-    public event EventHandler OnAttackButtonPressed; // Event which is fired when the attack button is 
+    public event EventHandler OnPausePressed; // Event fired when the pause button is pressed
+    public event EventHandler<bool> OnPhaseSelectorChange; // Event fired when the phase selector is hold or released
+    public event EventHandler<PlayerPowerUpArgs> OnPowerUpButtonPressed; // Event fired when the powerup button is pressed
+    public event EventHandler OnAttackButtonPressed; // Event fired when the attack button is pressed
+    public event EventHandler OnInteractButtonPressed; // Event fired when the interact button is pressed
+
 
     // UI ONLY
-    public event EventHandler OnBackPressed; // Event which is fired when cancel button is pressed
+    public event EventHandler OnBackPressed; // Event fired when cancel button is pressed
 
     private void Awake()
     {
@@ -64,9 +66,20 @@ public class InputController : MonoBehaviour
             // Attack Input
             playerInput.actions["Attack"].performed += OnAttackPressed;
 
+            // Interact Input
+            playerInput.actions["Interact"].performed += OnInteractPressed;
+
 
             // UI ACTION MAP
             playerInput.actions["Cancel"].performed += ctx => OnBackPressed?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    private void OnInteractPressed(InputAction.CallbackContext ctx)
+    {
+        if(ctx.performed)
+        {
+            OnInteractButtonPressed?.Invoke(this, EventArgs.Empty);
         }
     }
 

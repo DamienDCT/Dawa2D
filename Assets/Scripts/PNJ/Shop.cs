@@ -14,13 +14,11 @@ public class Shop : MonoBehaviour, IInteractable
     [SerializeField] private bool hasDialogueBeforeShopOpens;
     [SerializeField] private DialogNode startDialogNode;
 
-    // Range detection
-    [SerializeField] private float rangeDetection;
 
     public void Interact()
     {
         Debug.Log("interact");
-
+        ShopUITK.Instance.SetShop(this);
     }
 }
 
