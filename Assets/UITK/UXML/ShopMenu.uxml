@@ -3,10 +3,10 @@
     <ui:VisualElement name="Panel" class="panel-background hidden">
         <ui:VisualElement name="ListPart" style="flex-grow: 1; width: 100%; height: 100%; background-color: rgba(212, 0, 0, 0); background-size: 100% 100%;">
             <ui:VisualElement name="ShopNameContainer" style="flex-grow: 0; width: 100%; height: 17%; background-color: rgba(255, 255, 255, 0); background-size: 100% 20%; justify-content: flex-end; align-items: center;">
-                <ui:Label text="{Nom du Shop}" style="align-content: auto; font-size: 48px; background-color: rgb(255, 16, 16); padding-top: 32px; padding-right: 32px; padding-left: 32px; -unity-text-align: middle-left; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;"/>
+                <ui:Label text="{Nom du Shop}" name="ShopNameLabel" triple-click-selects-line="false" double-click-selects-word="false" class="shop-name-label" style="align-content: auto; font-size: 48px; background-color: rgba(255, 16, 16, 0); padding-top: 32px; padding-right: 32px; padding-left: 32px; -unity-text-align: middle-left; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255);"/>
             </ui:VisualElement>
-            <ui:VisualElement name="ShopContainer" style="flex-grow: 1; width: 100%; height: 100%; background-color: rgba(52, 251, 255, 0);">
-                <ui:VisualElement name="ShopItemList" style="flex-grow: 1; background-color: rgb(255, 188, 105); margin-top: 2%; margin-bottom: 8%; margin-right: 15%; margin-left: 15%;"/>
+            <ui:VisualElement name="ShopContainer" class="shop-container" style="flex-grow: 1; width: 100%; height: 100%; background-color: rgba(52, 251, 255, 0);">
+                <ui:VisualElement name="ShopItemList" style="flex-grow: 1; background-color: rgb(255, 188, 105); margin-top: 2%; margin-bottom: 8%; margin-right: 20%; margin-left: 20%;"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="ExplanationPart" style="flex-grow: 1; height: 100%; width: 90%; background-size: 100% 100%; justify-content: center; backdrop-filter: none;">

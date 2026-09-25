@@ -13,6 +13,7 @@ public class InventoryUITK : BasedUITK
     [SerializeField] private string itemTableLocalizationName;
 
     private VisualElement inventoryItemsContainer;
+    private VisualElement firstElementToSelect;
     private VisualElement root;
 
 
@@ -63,7 +64,7 @@ public class InventoryUITK : BasedUITK
         slotDotSize = new Scale(Vector2.one);
     }
 
-    private void OnEnable()
+    private void Awake()
     {
         panelRenderer = GetComponent<PanelRenderer>();
         panelRenderer.RegisterUIReloadCallback(OnUIReload);
@@ -72,11 +73,19 @@ public class InventoryUITK : BasedUITK
         slotImageSize = new Scale(new Vector2(2.5f, 2.5f));
         slotDotSize = new Scale(Vector2.one);
         selectedSlots = new VisualElement[4];
+        firstElementToSelect = null;
+    }
+
+    private void OnDestroy()
+    {
+        panelRenderer.UnregisterUIReloadCallback(OnUIReload);
+
     }
 
     protected override void OnMenuOpened()
     {
         ShowItems(null);
+      //  Cursor.visible = false; // ou lockState selon ton setup gameplay
     }
 
     private void OnUIReload(PanelRenderer panelRenderer, VisualElement rootElement, int version)
@@ -101,9 +110,18 @@ public class InventoryUITK : BasedUITK
         // On initialise les variables des boutons du menu à gauche
         itemButton = root.Q<Button>("ItemButton");
         spellButton = root.Q<Button>("SpellButton");
+        // Index tab = 0
+        itemButton.tabIndex = 0;
+        spellButton.tabIndex = 0;
+        // Focus events
+        itemButton.RegisterCallback<FocusInEvent>(evt => itemButton.AddToClassList("button-focused"));
+        itemButton.RegisterCallback<FocusOutEvent>(evt => itemButton.RemoveFromClassList("button-focused"));
+        spellButton.RegisterCallback<FocusInEvent>(evt => spellButton.AddToClassList("button-focused"));
+        spellButton.RegisterCallback<FocusOutEvent>(evt => spellButton.RemoveFromClassList("button-focused"));
+
         // On initialise les évents onclick
-        itemButton.RegisterCallback<ClickEvent>(ShowItems);
-        spellButton.RegisterCallback<ClickEvent>(ShowSpells);
+        itemButton.RegisterCallback<NavigationSubmitEvent>(ShowItems);
+        spellButton.RegisterCallback<NavigationSubmitEvent>(ShowSpells);
 
         // On initialise les deux parties des spells uniques/objets uniques
         specialItemsContainer = root.Q<VisualElement>("UniqueItemsInventory");
@@ -113,7 +131,7 @@ public class InventoryUITK : BasedUITK
 
     }
 
-    private void ShowSpells(ClickEvent evt)
+    private void ShowSpells(NavigationSubmitEvent evt)
     {
         _isSpellModeActive = true;
         selectedSpellsContainer.style.display = DisplayStyle.Flex;
@@ -123,7 +141,7 @@ public class InventoryUITK : BasedUITK
         RefreshInventory(GetSpellsInInventory());
     }
 
-    private void ShowItems(ClickEvent evt)
+    private void ShowItems(NavigationSubmitEvent evt)
     {
         _isSpellModeActive = false;
         selectedSpellsContainer.style.display = DisplayStyle.None;
@@ -192,7 +210,7 @@ public class InventoryUITK : BasedUITK
 
 
             // Souris -> focus (curseur unifié)
-            slot.RegisterCallback<PointerEnterEvent>(evt => slot.Focus());
+            //slot.RegisterCallback<PointerEnterEvent>(evt => slot.Focus());
             slot.RegisterCallback<FocusInEvent>(evt =>
             {
                 slot.AddToClassList("slot-focused");
@@ -219,8 +237,10 @@ public class InventoryUITK : BasedUITK
             selectedSlots[capturedIndex] = slot;
             ringContainer.Add(slot);
             i++;
-
         }
+
+        // Focus par défaut sur le premier slot du ring quand on l'affiche
+        selectedSlots[0]?.Focus();
 
     }
 
@@ -298,22 +318,36 @@ public class InventoryUITK : BasedUITK
     {
         inventoryItemsContainer.Clear();
 
+        int amountItemRegistered = 0;
+
+
         foreach (SlotUI item in items)
         {
-            AddSlotToInventoryItem(item, inventoryItemsContainer);
+            VisualElement element = AddSlotToInventoryItem(item, inventoryItemsContainer);
+            if (amountItemRegistered == 0)
+            {
+                firstElementToSelect = element;
+            }
+            amountItemRegistered++;
         }
-        for(int i = items.Count; i < PlayerInventory.INVENTORY_SIZE; i++)
+        for (int i = items.Count; i < PlayerInventory.INVENTORY_SIZE; i++)
         {
             AddSlotToInventoryItem(null, inventoryItemsContainer);
         }
 
+        // Focus par défaut sur le premier slot, indispensable sans souris
+        // Focus différé : on attend que le layout soit calculé avant de focus
+        if (firstElementToSelect != null)
+        {
+            firstElementToSelect.schedule.Execute(() => firstElementToSelect?.Focus());
+        }
     }
 
-    private void AddSlotToInventoryItem(SlotUI? item, VisualElement container)
+    private VisualElement AddSlotToInventoryItem(SlotUI? item, VisualElement container)
     {
         if (container == null)
-            return;
-
+            return null;
+ 
         TemplateContainer slotInstance = null;
         if (item != null)
         {
@@ -329,8 +363,8 @@ public class InventoryUITK : BasedUITK
             slotInstance.focusable = true;
             slotInstance.tabIndex = 0;
 
-            // Souris : hover -> focus (unifie souris et navigation clavier/manette)
-            slotInstance.RegisterCallback<PointerEnterEvent>(evt => slotInstance.Focus());
+            //// Souris : hover -> focus (unifie souris et navigation clavier/manette)
+            //slotInstance.RegisterCallback<PointerEnterEvent>(evt => slotInstance.Focus());
 
             // Curseur visuel (souris OU clavier/manette, peu importe la source)
             slotInstance.RegisterCallback<FocusInEvent>(evt =>
@@ -342,10 +376,11 @@ public class InventoryUITK : BasedUITK
                 slotInstance.RemoveFromClassList("slot-focused"));
 
             // Activation : clic souris OU bouton Submit manette/clavier
-            slotInstance.RegisterCallback<ClickEvent>(evt => ActivateInventorySlot(item, slotInstance));
+            //slotInstance.RegisterCallback<ClickEvent>(evt => ActivateInventorySlot(item, slotInstance));
             slotInstance.RegisterCallback<NavigationSubmitEvent>(evt => ActivateInventorySlot(item, slotInstance));
 
             container.Add(slotInstance);
+            inventoryItemsContainer.Add(slotInstance);
         }
         else
         {
@@ -354,6 +389,8 @@ public class InventoryUITK : BasedUITK
 
         if (slotInstance != null)
             container.Add(slotInstance);
+
+        return slotInstance;
     }
 
     private void ActivateInventorySlot(SlotUI? item, VisualElement slotElement)

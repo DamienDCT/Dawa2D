@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
+using Mono.Cecil.Cil;
 
 public class ShopUITK : BasedUITK
 {
@@ -18,6 +19,7 @@ public class ShopUITK : BasedUITK
 
 
     private VisualElement root;
+    private Label shopNameLabel;
 
     private int _uiVersion = -1;
 
@@ -58,6 +60,9 @@ public class ShopUITK : BasedUITK
         // Initialization of the container of shop's items
         shopItemsContainer = root.Q<VisualElement>("ShopItemList");
 
+        // Setup le nom du shop
+        shopNameLabel = root.Q<Label>("ShopNameLabel");
+
         ShowShopItems();
     }
 
@@ -96,6 +101,15 @@ public class ShopUITK : BasedUITK
         }
     }
 
+    private void SetupName()
+    {
+        if (currentShop == null)
+            return;
+
+        if (shopNameLabel != null)
+            shopNameLabel.text = currentShop.GetShopName();
+    }
+
     protected override void OnMenuOpened()
     {
         
@@ -106,7 +120,10 @@ public class ShopUITK : BasedUITK
         this.currentShop = shop;
 
         if (!IsMenuOpened)
+        {
             ShowShopItems();
+            SetupName();
+        }
 
         base.ToggleMenu();
     }

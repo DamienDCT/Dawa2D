@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour, IInteractable
 {
+    [SerializeField] private string shopName;
     [SerializeField] private List<ShopItem> itemShopList;
 
     public List<ShopItem> GetListItemShop => itemShopList;
@@ -14,6 +15,10 @@ public class Shop : MonoBehaviour, IInteractable
     [SerializeField] private bool hasDialogueBeforeShopOpens;
     [SerializeField] private DialogNode startDialogNode;
 
+    public string GetShopName()
+    {
+        return this.shopName;
+    }
 
     public void Interact()
     {

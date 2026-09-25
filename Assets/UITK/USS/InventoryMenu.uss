@@ -63,3 +63,7 @@
     align-items: center;
     align-content: center;
 }
+
+.button-focused {
+    background-color: rgb(112, 156, 255);
+}

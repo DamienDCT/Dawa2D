@@ -7,10 +7,11 @@ public class BasedUITK : MonoBehaviour
 
     protected VisualElement menuElement;
     protected bool IsMenuOpened = false;
+    public bool hasToOpen;
 
     private void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.tabKey.wasPressedThisFrame)
+        if (hasToOpen && Keyboard.current != null && Keyboard.current.tabKey.wasPressedThisFrame)
         {
             ToggleMenu();
         }
