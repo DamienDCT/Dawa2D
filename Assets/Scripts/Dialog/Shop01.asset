@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c8efb33ce5398543a6ef11fb142866d, type: 3}
+  m_Name: Shop01
+  m_EditorClassIdentifier: Assembly-CSharp::DialogNode
+  tableId: Dialogues
+  key: shop_01
+  hasChoices: 1
+  choices:
+  - key: shop_buy
+    nextNode: {fileID: 0}
+    actionIfSelected: {fileID: 11400000, guid: 727ec55cc79e5674480adc36d441b2d6, type: 2}
+  - key: shop_sell
+    nextNode: {fileID: 0}
+    actionIfSelected: {fileID: 11400000, guid: 1ad3ef91ec60bf94a9b7e0ecb9ac4dc1, type: 2}
+  - key: shop_cancel
+    nextNode: {fileID: 0}
+    actionIfSelected: {fileID: 11400000, guid: 71b6ad906aeba8a47b802c24a1f725c6, type: 2}
+  nextNodeIfNoChoice: {fileID: 0}

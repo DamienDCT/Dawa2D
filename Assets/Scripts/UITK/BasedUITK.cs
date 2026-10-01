@@ -1,36 +1,47 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class BasedUITK : MonoBehaviour
 {
-
     protected VisualElement menuElement;
     protected bool IsMenuOpened = false;
-    public bool hasToOpen;
 
-    private void Update()
+    public bool IsOpened => IsMenuOpened;
+
+    public void Open()
     {
-        if (hasToOpen && Keyboard.current != null && Keyboard.current.tabKey.wasPressedThisFrame)
-        {
-            ToggleMenu();
-        }
+        if (IsMenuOpened) return;
+        IsMenuOpened = true;
+        OnMenuOpened();
+        menuElement?.RemoveFromClassList("hidden");
     }
 
-    protected void ToggleMenu()
+    public void Close()
     {
-        IsMenuOpened = !IsMenuOpened;
-        if (IsMenuOpened)
-        {
-            OnMenuOpened();
-            menuElement?.RemoveFromClassList("hidden");
-        }
-        else
-        {
-            OnMenuClosed();
-            menuElement?.AddToClassList("hidden");
-        }
+        if (!IsMenuOpened) return;
+        IsMenuOpened = false;
+        OnMenuClosed();
 
+        if (menuElement == null) return;
+
+        // Retire le focus AVANT de cacher, sinon on cache un élément
+        // qui est encore en train d'être traité par le dispatcher d'events
+        var focused = menuElement.focusController?.focusedElement as VisualElement;
+        if (focused != null && menuElement.Contains(focused))
+            focused.Blur();
+
+        // On diffère le masquage réel au prochain repaint,
+        // pour sortir du dispatch d'event courant (NavigationSubmitEvent, etc.)
+        menuElement.schedule.Execute(() =>
+        {
+            menuElement.AddToClassList("hidden");
+        }).ExecuteLater(0);
+    }
+
+    public void ToggleMenu()
+    {
+        if (IsMenuOpened) Close();
+        else Open();
     }
 
     protected virtual void OnMenuOpened() { }

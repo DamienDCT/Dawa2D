@@ -30,6 +30,8 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private float transitionSpeed = 3f;
 
+    [SerializeField] private Transform cameraFollowObject;
+
     [SerializeField] private bool drawGizmos = true;
 
     private float _noHitTimer;
@@ -44,6 +46,10 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
+        // Setting the target camera object to its own Z position axis
+        Vector3 storedPosition = cameraFollowObject.transform.position;
+        cameraFollowObject.transform.position = new Vector3(storedPosition.x, storedPosition.y, 0);
+
         float targetWeight = ComputeTargetWeight(out bool hasHit, out float distance);
         _lastHit = hasHit;
         _lastHitDistance = distance;

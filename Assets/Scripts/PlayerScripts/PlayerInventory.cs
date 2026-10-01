@@ -33,78 +33,146 @@ public class PlayerInventory : MonoBehaviour
         AddSpell(GameDatabases.Instance.GetSpellDatabase().GetItemByID(1));
     }
 
-    private void Update()
+    //private void Update()
+    //{
+    //    if (Keyboard.current != null && Keyboard.current.mKey.wasPressedThisFrame)
+    //    {
+    //        InventorySaveManager.Save(this);
+    //    }
+
+    //    if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
+    //    {
+    //        InventorySaveManager.Load(this);
+    //    }
+
+    //    if (Keyboard.current != null && Keyboard.current.oKey.wasPressedThisFrame)
+    //    {
+    //        int i = 0;
+    //        foreach(SlotUI? slot in selectedSpells)
+    //        {
+    //            if (slot != null)
+    //                Debug.Log("slot plein = " + slot.Value.itemID);
+    //            else
+    //                Debug.Log(" slot vide  " + i);
+
+    //            i++;
+    //        }
+    //    }
+
+    //}
+
+    // Return the list of the soldable items
+    public List<SoldableItem> GetSoldableItems()
     {
-        if (Keyboard.current != null && Keyboard.current.mKey.wasPressedThisFrame)
+        var result = new List<SoldableItem>(storedItems.Count);
+
+        foreach (SlotUI slot in storedItems)
         {
-            InventorySaveManager.Save(this);
+            ItemSO item = GameDatabases.Instance.GetItemDatabase().GetItemByID(slot.itemID);
+            if (item.canBeSold)
+                result.Add(new SoldableItem(item, slot.quantity));
         }
 
-        if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            InventorySaveManager.Load(this);
-        }
-
-        if (Keyboard.current != null && Keyboard.current.oKey.wasPressedThisFrame)
-        {
-            int i = 0;
-            foreach(SlotUI? slot in selectedSpells)
-            {
-                if (slot != null)
-                    Debug.Log("slot plein = " + slot.Value.itemID);
-                else
-                    Debug.Log(" slot vide  " + i);
-
-                i++;
-            }
-        }
-
+        return result;
     }
 
+    // Return the quantity of the item from an ID
+    public int GetQuantity(int itemID)
+    {
+        foreach (SlotUI slot in storedItems)
+            if (slot.itemID == itemID)
+                return slot.quantity;
+        return 0;
+    }
 
+    // Return the list of the item type (null if non-stored type)
+    private List<SlotUI> GetListFor(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.ITEM: return storedItems;
+            case ItemType.SPELL: return storedSpells;
+            default: return null;
+        }
+    }
+
+    private int GetMaxSizeFor(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.ITEM: return INVENTORY_SIZE;
+            case ItemType.SPELL: return SPELL_INVENTORY_SIZE;
+            default: return 0;
+        }
+    }
+
+    // Buy item
+    public bool BuyObject(ItemSO item, int quantity = 1)
+    {
+        if (item == null)
+        {
+            Debug.LogWarning("BuyObject : item null");
+            return false;
+        }
+
+        List<SlotUI> list = GetListFor(item.itemType);
+        if (list == null)
+        {
+            Debug.LogWarning($"BuyObject : type non géré {item.itemType}");
+            return false;
+        }
+
+        bool stackable = item.itemType != ItemType.SPELL;
+
+        int index = list.FindIndex(s => s.itemID == item.ID);
+        if (index >= 0)
+        {
+            if (!stackable) return false; // sort déjà appris
+
+            SlotUI slot = list[index]; // struct : copie, donc on réécrit
+            slot.quantity += quantity;
+            list[index] = slot;
+            return true;
+        }
+
+        if (list.Count >= GetMaxSizeFor(item.itemType))
+        {
+            Debug.Log("Inventaire plein !");
+            return false;
+        }
+
+        list.Add(new SlotUI(item.ID, stackable ? quantity : -1, item.sprite,
+                            item.itemNameLocalization, item.descriptionLocalization));
+        return true;
+    }
 
     public IReadOnlyList<SlotUI> GetStoredItems() => storedItems;
     public IReadOnlyList<SlotUI> GetStoredSpells() => storedSpells;
     public SlotUI?[] GetSelectedSpells() => selectedSpells;
 
-    public void AddItem(int ID, int quantity)
-    {
-        if (storedItems.Count >= INVENTORY_SIZE)
-        {
-            Debug.Log("Inventaire plein !");
-            return;
-        }
-        ItemSO item = GameDatabases.Instance.GetItemDatabase().GetItemByID(ID);
-        Debug.Log(item.name);
-        Debug.Log(item.sprite.name);
-        Sprite sprite = null;
-        if(item != null)
-        {
-            sprite = item.sprite;
-        }
-        storedItems.Add(new SlotUI(ID, quantity, sprite, item.itemNameLocalization, item.descriptionLocalization));
-    }
 
-    public void AddSpell(ItemSO item)
-    {
-        if (storedSpells.Count >= SPELL_INVENTORY_SIZE)
-        {
-            Debug.Log("Inventaire de sorts plein !");
-            return;
-        }
+    // Fonction spéciale de test (pour le start)
+    public void AddItem(int ID, int quantity) =>
+        BuyObject(GameDatabases.Instance.GetItemDatabase().GetItemByID(ID), quantity);
 
-        storedSpells.Add(new SlotUI(item.ID, -1, item.sprite, item.itemNameLocalization, item.descriptionLocalization));
-    }
+    public void AddSpell(ItemSO item) => BuyObject(item);
 
-    public void RemoveItem(int itemID, int quantity)
+    public bool RemoveItem(int itemID, int quantity)
     {
-        SlotUI item = storedItems.Where(t => t.itemID == itemID).First();
-        item.quantity -= quantity;
-        if(item.quantity <= 0)
-        {
-            storedItems.Remove(item);
-        }
-       // storedItems.Remove(item);
+        int index = storedItems.FindIndex(s => s.itemID == itemID);
+        if (index < 0) return false;
+
+        SlotUI slot = storedItems[index];
+        if (slot.quantity < quantity) return false;
+
+        slot.quantity -= quantity;
+
+        if (slot.quantity <= 0)
+            storedItems.RemoveAt(index);
+        else
+            storedItems[index] = slot; // réécriture, comme dans BuyObject
+
+        return true;
     }
 
     public void EquipSpell(string slotName, SlotUI? slotUI)
@@ -134,7 +202,12 @@ public class PlayerInventory : MonoBehaviour
 
     }
 
+    public bool CanBuyItem(ShopItem shopItem)
+    {
+        SaveStats saveStats = GameManager.Instance.GetPlayerStats().Stats;
 
+        return saveStats.CurrentMoney >= shopItem.price;
+    }
 
     private bool IsSpellAlreadyEquipped(int spellID, out int equippedIndex)
     {
@@ -189,5 +262,17 @@ public struct SlotUI
 
         this.itemNameLocalization = itemNameLoc;
         this.descriptionLocalization = descNameLoc;
+    }
+}
+
+public readonly struct SoldableItem
+{
+    public readonly ItemSO item;
+    public readonly int quantity;
+
+    public SoldableItem(ItemSO item, int quantity)
+    {
+        this.item = item;
+        this.quantity = quantity;
     }
 }

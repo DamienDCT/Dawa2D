@@ -7,4 +7,14 @@ public class ItemSO : ScriptableObject
     public Sprite sprite;
     public string itemNameLocalization;
     public string descriptionLocalization;
+    public ItemType itemType;
+    public int priceToSell;
+    public bool canBeSold;
+}
+
+[System.Serializable]
+public enum ItemType
+{
+    ITEM,
+    SPELL,
 }

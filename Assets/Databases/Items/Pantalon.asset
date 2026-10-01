@@ -16,3 +16,6 @@ MonoBehaviour:
   sprite: {fileID: 21300240, guid: 7810966f0f690954c87305933cabf2b0, type: 3}
   itemNameLocalization: 000_itemname
   descriptionLocalization: 000_itemdescription
+  itemType: 0
+  priceToSell: 150
+  canBeSold: 1

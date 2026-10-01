@@ -68,18 +68,42 @@ public class FireflySwarm : MonoBehaviour
             transform.position.x - player.position.x
         );
 
-        //Vector3 direction = new Vector3(
-        //    directionX * 0.2f,
-        //    0f,
-        //    20f
-        //).normalized;
-        Vector3 direction = new Vector3(
+        Camera cam = Camera.main;
+
+        // Point imaginaire très loin derrière la caméra,
+        // légèrement au-dessus du centre.
+        Vector3 backgroundTarget =
+            cam.transform.position
+            + cam.transform.forward * 30f
+            + cam.transform.up * 3f;
+
+        // Direction principale : vers le fond.
+        Vector3 directionToBackground =
+            (backgroundTarget - transform.position).normalized;
+
+        // Petite influence horizontale :
+        // le côté opposé au joueur.
+        Vector3 playerEscapeDirection = new Vector3(
             directionX,
-            1f,
+            0f,
             0f
+        );
+
+        // 90% vers le fond
+        // 10% pour s'éloigner horizontalement du joueur.
+        Vector3 direction = (
+            directionToBackground * 0.9f
+            + playerEscapeDirection * 0.1f
         ).normalized;
 
-        visualEffect.SetVector3(FleeDirection, direction);
+        visualEffect.SetVector3(
+            FleeDirection,
+            direction
+        );
+
+        // -------------------------
+        // LATERAL MOVEMENT
+        // -------------------------
 
         Vector3 side = new Vector3(
             -direction.y,
@@ -87,7 +111,10 @@ public class FireflySwarm : MonoBehaviour
             0f
         ).normalized;
 
-        visualEffect.SetVector3(FleeSide, side);
+        visualEffect.SetVector3(
+            FleeSide,
+            side
+        );
 
         // -------------------------
         // PANIC
@@ -103,15 +130,21 @@ public class FireflySwarm : MonoBehaviour
                 timer / panicDuration
             );
 
-            visualEffect.SetFloat(PanicProgress, progress);
+            visualEffect.SetFloat(
+                PanicProgress,
+                progress
+            );
 
             yield return null;
         }
 
-        visualEffect.SetFloat(PanicProgress, 1f);
+        visualEffect.SetFloat(
+            PanicProgress,
+            1f
+        );
 
         // -------------------------
-        // FLYING
+        // TAKE OFF
         // -------------------------
 
         timer = 0f;
@@ -124,17 +157,24 @@ public class FireflySwarm : MonoBehaviour
                 timer / takeOffDuration
             );
 
-            float curvedProgress = fleeAmountCurve.Evaluate(progress);
+            float curvedProgress =
+                fleeAmountCurve.Evaluate(progress);
 
-            visualEffect.SetFloat(FleeAmount, curvedProgress);
+            visualEffect.SetFloat(
+                FleeAmount,
+                curvedProgress
+            );
 
             yield return null;
         }
 
-        visualEffect.SetFloat(FleeAmount, 1f);
+        visualEffect.SetFloat(
+            FleeAmount,
+            1f
+        );
 
         // -------------------------
-        // VOL
+        // FLIGHT
         // -------------------------
 
         timer = 0f;
@@ -147,12 +187,18 @@ public class FireflySwarm : MonoBehaviour
                 timer / flightDuration
             );
 
-            visualEffect.SetFloat(FlightProgress, progress);
+            visualEffect.SetFloat(
+                FlightProgress,
+                progress
+            );
 
             yield return null;
         }
 
-        visualEffect.SetFloat(FlightProgress, 1f);
+        visualEffect.SetFloat(
+            FlightProgress,
+            1f
+        );
 
         // On laisse le VFX terminer son fade.
         yield return new WaitForSeconds(0.2f);

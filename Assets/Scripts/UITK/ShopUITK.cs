@@ -16,32 +16,31 @@ public class ShopUITK : BasedUITK
 
     // Visual Elements
     private VisualElement shopItemsContainer;
-
-
     private VisualElement root;
     private Label shopNameLabel;
+    private Label moneyLabel;
 
     private int _uiVersion = -1;
 
+    private MoneyLabelAnimator moneyLabelAnimator = new MoneyLabelAnimator();
+
+
     private Shop currentShop;
+
+
+    // Selected item variables
+    private ShopItem selectedItemToBuy;
+    private VisualElement selectedVisualElement;
 
     private void Awake()
     {
         panelRenderer = GetComponent<PanelRenderer>();
         Instance = this;
-    }
-
-    private void OnEnable()
-    {
-        if(panelRenderer != null)
-            panelRenderer = GetComponent<PanelRenderer>();
         panelRenderer.RegisterUIReloadCallback(OnUIReload);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
-        if (panelRenderer != null)
-            panelRenderer = GetComponent<PanelRenderer>();
         panelRenderer.UnregisterUIReloadCallback(OnUIReload);
     }
 
@@ -63,42 +62,140 @@ public class ShopUITK : BasedUITK
         // Setup le nom du shop
         shopNameLabel = root.Q<Label>("ShopNameLabel");
 
+        // Initialization of the money label
+        moneyLabel = root.Q<Label>("MoneyLabel");
+
+        // On bind l'animator sur le label
+        moneyLabelAnimator.Bind(moneyLabel);
+        // On update l'argent avec "false" -> sans animation
+        UpdateMoney(false);
+
         ShowShopItems();
+    }
+
+    private void UpdateMoney(bool animate = true)
+    {
+        if (moneyLabel == null)
+            return;
+
+        // Selon si on demande une animation, on fait une animation ou non.
+        if(animate)
+        {
+            moneyLabelAnimator.AnimateTo(GetPlayerMoney());
+        } else
+        {
+            moneyLabelAnimator.SetImmediate(GetPlayerMoney());
+        }
+    }
+
+    private int GetPlayerMoney()
+    {
+        return GameManager.Instance.GetPlayerStats().Stats.CurrentMoney;
     }
 
     private void ShowShopItems()
     {
-        if (currentShop == null)
+        if (currentShop == null || shopItemsContainer == null)
             return;
-
-        shopItemsContainer.Clear();
 
         List<ShopItem> items = currentShop.GetListItemShop;
 
-        TemplateContainer itemInstance = null;
-        foreach (ShopItem shopItem in items)
+        List<VisualElement> elements = new List<VisualElement>();
+
+        // TODO : IMPORTANT /!\ : Faire en sorte de pas mettre les unique items déjà achetés dans le shop
+        // Ou alors : les affichés comme acheté (peut être comme ça c'est mieux)
+
+        // On diffère la reconstruction pour ne jamais la faire
+        // pendant un dispatch d'event / repaint en cours
+        shopItemsContainer.schedule.Execute(() =>
         {
-            itemInstance = _shopItemTemplate.Instantiate();
+            shopItemsContainer.Clear();
 
-            // On associe le sprite à la bonne ligne
-            Image itemIcon = itemInstance.Q<Image>("ItemIcon");
-            if (itemIcon != null)
-                itemIcon.sprite = shopItem.soldItem.sprite;
+            int currentInventoryItem = 0;
 
-            // On associe le bon nom d'item | TODO : Faire avec la localization
-            Label itemName = itemInstance.Q<Label>("ItemLabel");
-            if(itemName != null)
-                itemName.text = shopItem.soldItem.name;
+            foreach (ShopItem shopItem in items)
+            {
+                var itemInstance = _shopItemTemplate.Instantiate();
 
-            // On associe le bon prix de l'item
-            Label itemPrice = itemInstance.Q<Label>("ItemCost");
-            if (itemPrice != null)
-                itemPrice.text = shopItem.price.ToString();
+                itemInstance.focusable = true;
+                itemInstance.tabIndex = 0;
 
-            // TODO : Hover effect -> apply description
+                Image itemIcon = itemInstance.Q<Image>("ItemIcon");
+                if (itemIcon != null)
+                    itemIcon.sprite = shopItem.soldItem.sprite;
 
-            shopItemsContainer.Add(itemInstance);
+                Label itemName = itemInstance.Q<Label>("ItemLabel");
+                if (itemName != null)
+                    itemName.text = shopItem.soldItem.name;
+
+                Label itemPrice = itemInstance.Q<Label>("ItemCost");
+                if (itemPrice != null)
+                    itemPrice.text = shopItem.price.ToString();
+
+                shopItemsContainer.Add(itemInstance);
+
+                // Add elements focus & navigation events
+                itemInstance.RegisterCallback<FocusOutEvent>((evt) => itemInstance.RemoveFromClassList("selected"));
+                itemInstance.RegisterCallback<FocusInEvent>((evt) => FocusInShopElement(itemInstance, shopItem));
+
+                itemInstance.RegisterCallback<NavigationSubmitEvent>((evt) => BuyItem(shopItem));
+
+                elements.Add(itemInstance);
+
+                currentInventoryItem++;
+            }
+
+            selectedVisualElement = elements[0];
+            selectedItemToBuy = items[0];
+
+            // On attend que le layout du premier élément soit réellement calculé
+            // avant de lui donner le focus (Focus() peut échouer silencieusement
+            // si canGrabFocus() est encore false).
+            FocusFirstWhenReady(elements[0]);
+
+
+        }).ExecuteLater(0);
+
+
+    }
+
+    // Make the player buying the item
+    private void BuyItem(ShopItem item)
+    {
+        if (currentShop == null)
+            return;
+
+        if(currentShop.Buy(item))
+        {
+            Debug.Log($"We bought {item.soldItem.itemNameLocalization}");
+            UpdateMoney();
+        } else
+        {
+            Debug.LogWarning($"We couldn't buy this item { item.soldItem.itemNameLocalization}");
         }
+
+    }
+
+    private void FocusFirstWhenReady(VisualElement element)
+    {
+        void OnGeometryChanged(GeometryChangedEvent evt)
+        {
+            element.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+
+            element.Focus();
+
+            var focused = element.panel?.focusController?.focusedElement;
+        }
+
+        element.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+    }
+
+    private void FocusInShopElement(VisualElement element, ShopItem shopItem)
+    {
+        selectedVisualElement = element;
+        selectedItemToBuy = shopItem;
+
+        element.AddToClassList("selected");
     }
 
     private void SetupName()
@@ -110,9 +207,10 @@ public class ShopUITK : BasedUITK
             shopNameLabel.text = currentShop.GetShopName();
     }
 
-    protected override void OnMenuOpened()
+    protected override void OnMenuClosed()
     {
-        
+        currentShop.SetCanInteract(true);
+        currentShop = null;
     }
 
     public void SetShop(Shop shop)
@@ -125,6 +223,6 @@ public class ShopUITK : BasedUITK
             SetupName();
         }
 
-        base.ToggleMenu();
+        //base.ToggleMenu();
     }
 }

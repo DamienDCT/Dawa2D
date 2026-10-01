@@ -12,3 +12,22 @@
 .hidden {
     display: none;
 }
+
+.money-label {
+    color: rgb(255, 255, 255);
+    scale: 1 1;
+    transform-origin: right center; /* ou left / center selon ton layout */
+    transition-property: color, scale;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-out;
+}
+
+.money-gain {
+    color: rgb(90, 230, 110);
+    scale: 1.2 1.2;
+}
+
+.money-loss {
+    color: rgb(240, 80, 80);
+    scale: 1.2 1.2;
+}

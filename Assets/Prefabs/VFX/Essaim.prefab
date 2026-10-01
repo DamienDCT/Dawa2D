@@ -1,0 +1,288 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &794428436344225436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 957739983499533250}
+  - component: {fileID: 8615464719381870387}
+  - component: {fileID: 2639789865645020728}
+  - component: {fileID: 8262826628662449987}
+  m_Layer: 0
+  m_Name: Essaim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &957739983499533250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794428436344225436}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.37, y: -2.42, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!2083052967 &8615464719381870387
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794428436344225436}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 8ebc86c2e6eaa33418328657129f926d, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ReleaseInstanceOnDisable: 0
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 0
+        m_Name: ReleaseProgress
+        m_Overridden: 1
+      - m_Value: 2
+        m_Name: FlightSpeed
+        m_Overridden: 1
+      - m_Value: 0
+        m_Name: FleeAmount
+        m_Overridden: 1
+      - m_Value: 2
+        m_Name: WobblePower
+        m_Overridden: 1
+      - m_Value: 0
+        m_Name: FlightProgress
+        m_Overridden: 1
+      - m_Value: 21
+        m_Name: PanicStrength
+        m_Overridden: 1
+      - m_Value: 1
+        m_Name: PanicAmount
+        m_Overridden: 1
+      - m_Value: 0
+        m_Name: PanicProgress
+        m_Overridden: 1
+      - m_Value: 4.9
+        m_Name: AttractForceStrength
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array:
+      - m_Value: {x: 0.09, y: 0.15}
+        m_Name: SizeRange
+        m_Overridden: 1
+    m_Vector3f:
+      m_Array:
+      - m_Value: {x: 0.88, y: 0.44, z: 0}
+        m_Name: FleeDirection
+        m_Overridden: 1
+      - m_Value: {x: 0.44, y: 0.88, z: 0}
+        m_Name: FleeSide
+        m_Overridden: 1
+    m_Vector4f:
+      m_Array:
+      - m_Value: {x: 0.47920644, y: 2.0249956, z: 2.0733013, w: 1}
+        m_Name: MainColor
+        m_Overridden: 1
+      - m_Value: {x: 0.05, y: 0.08, z: 0.14, w: 0.17}
+        m_Name: SizeRange
+        m_Overridden: 1
+      - m_Value: {x: 0.18314245, y: 0.15583839, z: 0.3207547, w: 1}
+        m_Name: AtmosphereColor
+        m_Overridden: 1
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array:
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: -0.0026855469
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.076166295
+            value: 0.24393255
+            inSlope: 2.8407483
+            outSlope: 2.8407483
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.22692852
+            value: 0.47550204
+            inSlope: 0.73788714
+            outSlope: 0.73788714
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.122885905
+            outWeight: 0.04850487
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0.35210592
+            outSlope: 0.35210592
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.0896856
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: CurveFadeOut
+        m_Overridden: 1
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array: []
+--- !u!73398921 &2639789865645020728
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794428436344225436}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+--- !u!114 &8262826628662449987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794428436344225436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6f540fd93a95ac4b9f5b4a2dabbb641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FireflySwarm
+  visualEffect: {fileID: 8615464719381870387}
+  player: {fileID: 0}
+  fleeDistance: 2.5
+  takeOffDuration: 0.45
+  flightDuration: 1.5
+  panicDuration: 0.15
+  fleeAmountCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.16368747
+      outSlope: 0.16368747
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.19425073
+    - serializedVersion: 3
+      time: 0.2
+      value: 0.02
+      inSlope: 0.22124305
+      outSlope: 0.22124305
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.15880607
+    - serializedVersion: 3
+      time: 0.4
+      value: 0.08
+      inSlope: 0.3385263
+      outSlope: 0.3385263
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.15685289
+    - serializedVersion: 3
+      time: 0.6
+      value: 0.2
+      inSlope: 1.3447207
+      outSlope: 1.3447207
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8
+      value: 0.5
+      inSlope: 1.4031653
+      outSlope: 1.4031653
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2.3802898
+      outSlope: 2.3802898
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10019273
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

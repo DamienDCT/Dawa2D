@@ -31,6 +31,22 @@ MonoBehaviour:
     m_Key: intro_02
     m_Metadata:
       m_Items: []
+  - m_Id: 127966300992163840
+    m_Key: shop_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 127967087105396736
+    m_Key: shop_buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 127967147100721152
+    m_Key: shop_sell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 127967449946247168
+    m_Key: shop_cancel
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

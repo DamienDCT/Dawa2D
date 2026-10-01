@@ -1,0 +1,19 @@
+.choice-text {
+    color: rgb(255, 255, 255);
+    font-size: 31px;
+    -unity-text-align: upper-center;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.hidden {
+    display: none;
+}
+
+.selected-choice-text {
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.3s;
+    transition-property: scale;
+    scale: 1.1 1.1;
+    text-decoration: underline;
+}

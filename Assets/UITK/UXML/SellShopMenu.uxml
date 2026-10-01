@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UITK/USS/ShopMenu.uss?fileID=7433441132597879392&amp;guid=2449f8c1a49a3764ebbe2a044ff23630&amp;type=3#ShopMenu"/>
-    <ui:VisualElement name="Panel" class="panel-background hidden">
+    <ui:VisualElement name="Panel" class="panel-background hidden" style="flex-direction: row;">
         <ui:VisualElement name="ListPart" style="flex-grow: 0; width: 50%; height: 100%; background-color: rgba(212, 0, 0, 0); background-size: 100% 100%;">
             <ui:VisualElement name="ShopNameContainer" style="flex-grow: 0; width: 100%; height: 17%; background-color: rgba(255, 255, 255, 0); background-size: 100% 20%; justify-content: flex-end; align-items: center;">
                 <ui:Label text="{Nom du Shop}" name="ShopNameLabel" triple-click-selects-line="false" double-click-selects-word="false" class="shop-name-label" style="align-content: auto; font-size: 48px; background-color: rgba(255, 16, 16, 0); padding-top: 32px; padding-right: 32px; padding-left: 32px; -unity-text-align: middle-left; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255);"/>
@@ -15,7 +15,7 @@
                 <ui:Image source="project://database/Assets/Samples/Input%20System/1.11.2/Rebinding%20UI/Icons/PS4_Circle.png?fileID=2800000&amp;guid=c7f381483fb41f14e935b2d6d9fec62f&amp;type=3#PS4_Circle" style="width: 48px; height: 48px; flex-grow: 1; justify-content: center;"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="ExplanationPart" style="flex-grow: 1; height: 100%; width: 80%; background-size: 100% 100%; justify-content: center; backdrop-filter: none;">
+        <ui:VisualElement name="ExplanationPart" style="flex-grow: 1; height: 100%; width: 80%; background-size: 100% 100%; justify-content: center; backdrop-filter: none; display: none;">
             <ui:VisualElement name="TextContainer" style="flex-grow: 0; background-color: rgb(0, 0, 0); width: 90%; height: auto; padding-top: 2%; padding-bottom: 2%; padding-right: 5%; padding-left: 5%; align-self: center; justify-content: center; margin-bottom: 50%; opacity: 1; border-top-left-radius: 24px; border-top-right-radius: 24px; border-bottom-right-radius: 24px; border-bottom-left-radius: 24px; backdrop-filter: none; filter: none;">
                 <ui:Label text="Je suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un label" style="color: rgb(255, 255, 255); font-size: 35px; white-space: pre-wrap;"/>
             </ui:VisualElement>

@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UITK/USS/DialogBox.uss?fileID=7433441132597879392&amp;guid=d780d8e13108d10409f2ec532a7eb677&amp;type=3#DialogBox"/>
+    <ui:VisualElement name="Root" class="hidden" style="flex-grow: 1; background-color: rgba(34, 34, 34, 0.647); padding-top: 58px; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 100%; height: 100%;">
+        <ui:VisualElement style="flex-grow: 1; height: 50%; flex-direction: column;">
+            <ui:VisualElement name="TextContent" style="background-color: rgb(24, 24, 24); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; border-top-left-radius: 68px; border-top-right-radius: 68px; border-bottom-right-radius: 68px; border-bottom-left-radius: 68px; align-self: center; width: 1128px; height: 281px; justify-content: flex-start; padding-top: 18px; padding-right: 34px; padding-bottom: 34px; padding-left: 34px;">
+                <ui:Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla." name="DialogLabel" style="color: rgb(255, 255, 255); font-size: 34px; white-space: pre-wrap; -unity-text-align: upper-left; -unity-font-style: normal;"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="ChoiceContent" style="flex-grow: 0; background-color: rgb(10, 10, 10); width: auto; height: auto; align-self: flex-end; margin-right: 0; position: relative; top: -50px; left: -339px; border-top-left-radius: 23px; border-top-right-radius: 23px; border-bottom-right-radius: 23px; border-bottom-left-radius: 23px; flex-direction: column; padding-top: 21px; padding-right: 21px; padding-bottom: 21px; padding-left: 21px; backdrop-filter: none; filter: drop-shadow(-4.33 -5.22 2.69 rgb(0, 0, 0));"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

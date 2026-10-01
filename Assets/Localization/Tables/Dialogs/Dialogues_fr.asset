@@ -34,6 +34,22 @@ MonoBehaviour:
     m_Localized: Eh mais... <split> Tu dors ou quoi  ? <split> Debout !
     m_Metadata:
       m_Items: []
+  - m_Id: 127966300992163840
+    m_Localized: "Bienvenue dans le shop n\xB01 ! Ici nous pouvons te vendre diff\xE9rents \xE9l\xE9ments de personnalisation de ton personnage !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 127967087105396736
+    m_Localized: Acheter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 127967147100721152
+    m_Localized: Vendre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 127967449946247168
+    m_Localized: Annuler
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

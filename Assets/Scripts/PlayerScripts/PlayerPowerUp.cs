@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.ResourceManagement.Util;
 
 public class PlayerPowerUp : MonoBehaviour
 {
@@ -39,8 +40,7 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private bool canUseDodge;
     [SerializeField] private bool canUseHammer;
 
-
-    void Start()
+    private void Start()
     { 
 
         // Get the width of the half of the collider
@@ -56,13 +56,13 @@ public class PlayerPowerUp : MonoBehaviour
         canUseHammer = true;
     }
 
-    private void OnEnable()
+    private void Awake()
     {
         // Subscribing to the event of spell
         InputController.Instance.OnPowerUpButtonPressed += UsePowerUp;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         InputController.Instance.OnPowerUpButtonPressed -= UsePowerUp;
     }
@@ -210,7 +210,7 @@ public class PlayerPowerUp : MonoBehaviour
         Vector3 start = transform.position;
 
         int isDashForeground = UnityEngine.Random.Range(0, 2);
-        float _backgroundZ = backgroundZ;
+        float _backgroundZ = isDashForeground == 0 ? backgroundZ : backgroundZ * -1f;
 
         // Point de contrôle (milieu de la courbe)
         Vector3 control = new Vector3(
