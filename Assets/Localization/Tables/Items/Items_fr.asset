@@ -34,6 +34,14 @@ MonoBehaviour:
     m_Localized: C'est un slibard bien trop rudimentaire...
     m_Metadata:
       m_Items: []
+  - m_Id: 126101034985312256
+    m_Localized: Ceci est un pantalon basique ! Achetez-le, et vous ne le regretterez jamais !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 126101043441029120
+    m_Localized: "C'est un item basique, clairement connu pour son \xE9nergie cin\xE9tique au Pi\xE9mont Bois\xE9."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

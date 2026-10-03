@@ -17,7 +17,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="ExplanationPart" style="flex-grow: 1; height: 100%; width: 80%; background-size: 100% 100%; justify-content: center; backdrop-filter: none;">
             <ui:VisualElement name="TextContainer" style="flex-grow: 0; background-color: rgb(0, 0, 0); width: 90%; height: auto; padding-top: 2%; padding-bottom: 2%; padding-right: 5%; padding-left: 5%; align-self: center; justify-content: center; margin-bottom: 50%; opacity: 1; border-top-left-radius: 24px; border-top-right-radius: 24px; border-bottom-right-radius: 24px; border-bottom-left-radius: 24px; backdrop-filter: none; filter: none;">
-                <ui:Label text="Je suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un label" style="color: rgb(255, 255, 255); font-size: 35px; white-space: pre-wrap;"/>
+                <ui:Label text="Je suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un labelJe suis un label" name="DescriptionLabel" style="color: rgb(255, 255, 255); font-size: 35px; white-space: pre-wrap;"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

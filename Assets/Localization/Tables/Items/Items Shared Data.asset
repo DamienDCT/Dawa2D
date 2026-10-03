@@ -31,6 +31,14 @@ MonoBehaviour:
     m_Key: 001_itemdescription
     m_Metadata:
       m_Items: []
+  - m_Id: 126101034985312256
+    m_Key: shopitemdescription_001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 126101043441029120
+    m_Key: shopitemdescription_002
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

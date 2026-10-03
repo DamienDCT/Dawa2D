@@ -2,96 +2,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class SellShopUITK : BasedUITK
+public class SellShopUITK : BasedShopUITK
 {
     public static SellShopUITK Instance;
-
-    // Template of one shop item
-    [SerializeField] private VisualTreeAsset _shopItemTemplate;
-    // Panel renderer to register events
-    [SerializeField] private PanelRenderer panelRenderer;
-    // itemTableLocalization to translate
-    [SerializeField] private string itemTableLocalizationName;
-
-    // Visual Elements
-    private VisualElement shopItemsContainer;
-    private VisualElement root;
-    private Label shopNameLabel;
-    private Label moneyLabel;
-
-    private MoneyLabelAnimator moneyLabelAnimator;
-
-    private int _uiVersion = -1;
-
     private VisualElement selectedVisualElement;
     private ItemSO selectedItemToBuy;
 
-    private Shop currentShop;
-
-    private void Awake()
+    protected override void Awake()
     {
-        panelRenderer = GetComponent<PanelRenderer>();
+        base.Awake();
         Instance = this;
-        panelRenderer.RegisterUIReloadCallback(OnUIReload);
-        moneyLabelAnimator = new MoneyLabelAnimator();
     }
 
-    private void OnDestroy()
-    {
-        panelRenderer.UnregisterUIReloadCallback(OnUIReload);
-    }
-
-    private void OnUIReload(PanelRenderer panelRenderer, VisualElement rootElement, int version)
-    {
-        // Avoiding reload if the UI is the same 
-        if (_uiVersion == version)
-            return;
-
-        // We update the ui version
-        _uiVersion = version;
-
-        root = rootElement;
-        menuElement = root.Q<VisualElement>("Panel");
-
-        // Initialization of the container of shop's items
-        shopItemsContainer = root.Q<VisualElement>("ShopItemList");
-
-        // Initialization of the name's shop label
-        shopNameLabel = root.Q<Label>("ShopNameLabel");
-
-        // Initialization of the money label
-        moneyLabel = root.Q<Label>("MoneyLabel");
-
-        // On bind l'animator sur le label
-        moneyLabelAnimator.Bind(moneyLabel);
-        // On update l'argent avec "false" -> sans animation
-        UpdateMoney(false);
-
-        ShowItems();
-    }
-
-    private void UpdateMoney(bool animate = true)
-    {
-        if (moneyLabel == null)
-            return;
-
-        // Selon si on demande une animation, on fait une animation ou non.
-        if (animate)
-        {
-            moneyLabelAnimator.AnimateTo(GetPlayerMoney());
-        }
-        else
-        {
-            moneyLabelAnimator.SetImmediate(GetPlayerMoney());
-        }
-    }
-
-    private int GetPlayerMoney()
-    {
-        return GameManager.Instance.GetPlayerStats().Stats.CurrentMoney;
-    }
-
-    private void ShowItems()
+    protected override void ShowItemsInside()
     {
         if (currentShop == null)
         {
@@ -108,7 +31,7 @@ public class SellShopUITK : BasedUITK
         var container = shopItemsContainer; // capture locale
         List<SoldableItem> itemsToSell = PlayerInventory.Instance.GetSoldableItems();
 
-        container.schedule.Execute(() =>
+        container.schedule.Execute(async () =>
         {
             // Le container a été détruit / remplacé entre-temps (reload du UI)
             if (container.panel == null || container != shopItemsContainer)
@@ -133,8 +56,13 @@ public class SellShopUITK : BasedUITK
                 var icon = itemInstance.Q<Image>("ItemIcon");
                 if (icon != null) icon.sprite = currentItemToSell.sprite;
 
-                var nameLabel = itemInstance.Q<Label>("ItemLabel");
-                if (nameLabel != null) nameLabel.text = currentItemToSell.name;
+                Label itemName = itemInstance.Q<Label>("ItemName");
+                if (itemName != null)
+                {
+                    string localizationName = await LocalizationManager.Instance.GetTranslatedText(soldableItem.item.itemNameLocalization, itemTableLocalizationName);
+
+                    itemName.text = localizationName;
+                }
 
                 var priceLabel = itemInstance.Q<Label>("ItemCost");
                 if (priceLabel != null) priceLabel.text = currentItemToSell.priceToSell.ToString();
@@ -188,20 +116,6 @@ public class SellShopUITK : BasedUITK
         row.RemoveFromHierarchy();
     }
 
-    private void FocusFirstWhenReady(VisualElement element)
-    {
-        void OnGeometryChanged(GeometryChangedEvent evt)
-        {
-            element.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
-
-            element.Focus();
-
-            var focused = element.panel?.focusController?.focusedElement;
-        }
-
-        element.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
-    }
-
     private void FocusInShopElement(VisualElement element, ItemSO shopItem)
     {
         selectedVisualElement = element;
@@ -216,7 +130,7 @@ public class SellShopUITK : BasedUITK
         currentShop = null;
     }
 
-    private void SetupName()
+    protected override void SetupName()
     {
         if (currentShop == null)
             return;
@@ -225,17 +139,17 @@ public class SellShopUITK : BasedUITK
             shopNameLabel.text = "Vendre à " + currentShop.GetShopName();
     }
 
-    public void SetShop(Shop shop)
-    {
-        this.currentShop = shop;
+    //public void SetShop(Shop shop)
+    //{
+    //    this.currentShop = shop;
 
-        if (!IsMenuOpened)
-        {
-            ShowItems();
-            SetupName();
-        }
+    //    if (!IsMenuOpened)
+    //    {
+    //        ShowItems();
+    //        SetupName();
+    //    }
 
-        //base.ToggleMenu();
-    }
+    //    //base.ToggleMenu();
+    //}
 
 }

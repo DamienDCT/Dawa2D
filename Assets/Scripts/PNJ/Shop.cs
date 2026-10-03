@@ -75,6 +75,12 @@ public class Shop : MonoBehaviour, IInteractable
         return true;
     }
 
+    public int GetQuantityRemaining(ShopItem shopItem)
+    {
+        int index = itemShopList.FindIndex(i => i.soldItem.ID == shopItem.soldItem.ID);
+        return index < 0 ? 0 : itemShopList[index].quantityRemaining;
+    }
+    
     public void SetCanInteract(bool canInteract)
     {
         this.canInteract = canInteract;
